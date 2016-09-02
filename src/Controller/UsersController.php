@@ -148,7 +148,7 @@ class UsersController extends AppController
                     if($profile->toArray() != null){
                         //Trainer  exists
                         //Redirects to trainer's homepage
-                        return $this->redirect(['controller' => 'Trainers', 'action' => 'index']);
+                        return $this->redirect(['controller' => 'Trainers', 'action' => 'edit']);
                     }else{
                         //Trainer doesn't  exist
                         //Creates one

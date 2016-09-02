@@ -17,7 +17,6 @@
     <fieldset>
         <legend><?= __('Edit Telephone') ?></legend>
         <?php
-            echo $this->Form->input('trainers_id', ['options' => $trainers]);
             echo $this->Form->input('telephone');
         ?>
     </fieldset>

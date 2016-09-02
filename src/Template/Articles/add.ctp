@@ -11,7 +11,6 @@
     <fieldset>
         <legend><?= __('Add Article') ?></legend>
         <?php
-            echo $this->Form->input('trainers_id', ['options' => $trainers]);
             echo $this->Form->input('title');
             echo $this->Form->input('description');
             echo $this->Form->input('url');

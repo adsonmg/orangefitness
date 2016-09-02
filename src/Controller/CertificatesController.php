@@ -19,7 +19,10 @@ class CertificatesController extends AppController
     public function index()
     {
         $this->paginate = [
-            'contain' => ['Trainers']
+            'contain' => ['Trainers'],
+            'conditions' => [
+                   'Trainers.users_id' => $this->Auth->user('id'),
+            ]
         ];
         $certificates = $this->paginate($this->Certificates);
 
@@ -54,6 +57,15 @@ class CertificatesController extends AppController
         $certificate = $this->Certificates->newEntity();
         if ($this->request->is('post')) {
             $certificate = $this->Certificates->patchEntity($certificate, $this->request->data);
+            
+            //Set trainer id
+            $id = $this->Auth->user('id');
+            $this->loadModel('Trainers');
+            $profile = $this->Trainers->find('all')
+                    ->where(['users_id =' => $id]);
+            $profile = $profile->toArray();
+            $certificate->trainers_id = $profile[0]['id'];
+            
             if ($this->Certificates->save($certificate)) {
                 $this->Flash->success(__('The certificate has been saved.'));
 
@@ -81,6 +93,15 @@ class CertificatesController extends AppController
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $certificate = $this->Certificates->patchEntity($certificate, $this->request->data);
+            
+            //Set trainer id
+            $id = $this->Auth->user('id');
+            $this->loadModel('Trainers');
+            $profile = $this->Trainers->find('all')
+                    ->where(['users_id =' => $id]);
+            $profile = $profile->toArray();
+            $certificate->trainers_id = $profile[0]['id'];
+            
             if ($this->Certificates->save($certificate)) {
                 $this->Flash->success(__('The certificate has been saved.'));
 
@@ -112,6 +133,34 @@ class CertificatesController extends AppController
         }
 
         return $this->redirect(['action' => 'index']);
+    }
+    
+    
+    /**
+     * By default access to trainer is denied. So we´ll 
+     * incrementally grant access where it makes sense.
+     * @param type $user
+     */
+    public function isAuthorized($user) {
+        $action = $this->request->params['action'];
+        //view and add profile are alwayes allowed.
+        if(in_array($action, ['index', 'view', 'add'])){
+            return true;
+        }
+        
+        //All other actions require an id.
+        if(empty($this->request->params['pass'][0])){
+            return false;
+        }
+        
+        //check that the profile belongs to the current user.
+        $id = $this->request->params['pass'][0];
+        $trainer = $this->Trainers->get($id);
+        if($trainer->users_id == $user['id']){
+            return true;
+        }
+        
+        parent::isAuthorized($user);
     }
     
     public function initialize()

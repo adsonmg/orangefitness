@@ -19,7 +19,10 @@ class TelephonesController extends AppController
     public function index()
     {
         $this->paginate = [
-            'contain' => ['Trainers']
+            'contain' => ['Trainers'],
+            'conditions' => [
+                   'Trainers.users_id' => $this->Auth->user('id'),
+            ]
         ];
         $telephones = $this->paginate($this->Telephones);
 
@@ -54,6 +57,15 @@ class TelephonesController extends AppController
         $telephone = $this->Telephones->newEntity();
         if ($this->request->is('post')) {
             $telephone = $this->Telephones->patchEntity($telephone, $this->request->data);
+            
+            //Set trainer id
+            $id = $this->Auth->user('id');
+            $this->loadModel('Trainers');
+            $profile = $this->Trainers->find('all')
+                    ->where(['users_id =' => $id]);
+            $profile = $profile->toArray();
+            $telephone->trainers_id = $profile[0]['id'];
+            
             if ($this->Telephones->save($telephone)) {
                 $this->Flash->success(__('The telephone has been saved.'));
 
@@ -81,6 +93,14 @@ class TelephonesController extends AppController
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $telephone = $this->Telephones->patchEntity($telephone, $this->request->data);
+            //Set trainer id
+            $id = $this->Auth->user('id');
+            $this->loadModel('Trainers');
+            $profile = $this->Trainers->find('all')
+                    ->where(['users_id =' => $id]);
+            $profile = $profile->toArray();
+            $telephone->trainers_id = $profile[0]['id'];
+            
             if ($this->Telephones->save($telephone)) {
                 $this->Flash->success(__('The telephone has been saved.'));
 
@@ -112,6 +132,34 @@ class TelephonesController extends AppController
         }
 
         return $this->redirect(['action' => 'index']);
+    }
+    
+    
+    /**
+     * By default access to trainer is denied. So we´ll 
+     * incrementally grant access where it makes sense.
+     * @param type $user
+     */
+    public function isAuthorized($user) {
+        $action = $this->request->params['action'];
+        //view and add profile are alwayes allowed.
+        if(in_array($action, ['index', 'view', 'add'])){
+            return true;
+        }
+        
+        //All other actions require an id.
+        if(empty($this->request->params['pass'][0])){
+            return false;
+        }
+        
+        //check that the profile belongs to the current user.
+        $id = $this->request->params['pass'][0];
+        $trainer = $this->Trainers->get($id);
+        if($trainer->users_id == $user['id']){
+            return true;
+        }
+        
+        parent::isAuthorized($user);
     }
     
     public function initialize()

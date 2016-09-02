@@ -22,7 +22,6 @@
             echo $this->Form->input('linkedin');
             echo $this->Form->input('youtube');
             echo $this->Form->input('email');
-            echo $this->Form->input('trainers_id', ['options' => $trainers]);
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>

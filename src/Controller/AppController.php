@@ -46,6 +46,7 @@ class AppController extends Controller
         //AuthComponent, as our users table uses email as 
         //the username.
         $this->loadComponent('Auth', [
+            'authorize'=> 'Controller',
             'authenticate' => [
                 'Form' => [
                     'fields' => [
@@ -57,7 +58,8 @@ class AppController extends Controller
             'loginAction' => [
                 'controller' => 'Users',
                 'action' => 'login'
-            ]
+            ],
+            'unauthorizedRedirect' => $this->referer()
         ]);
 
         // Allow the display action so our pages controller
@@ -78,5 +80,13 @@ class AppController extends Controller
         ) {
             $this->set('_serialize', true);
         }
+    }
+    
+    /**
+     * Restricting access
+     */
+    public function isAuthorized($user)
+    {
+        return false;
     }
 }
