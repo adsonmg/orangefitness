@@ -175,7 +175,7 @@ input {
 	text-align:center;
 	background-attachment: relative;
 	background-position: center center;
-	min-height: 700px;
+	min-height: 490px;
 	width: 100%;
 	color: white;
 	
@@ -372,4 +372,35 @@ ul {
 
 #f a:hover {
 	color: #03C9A9;
+}
+
+/*Services*/
+.services {
+    padding: 50px 0;
+}
+
+.bg-primary {
+    color: #F4F4F4;
+    background-color: #F4F4F4;
+}
+
+.fa-stack-1x, .fa-stack-2x {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    text-align: center;
+}
+
+.fa {
+    display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    transform: translate(0, 0);
+}
+
+.text-primary {
+    color: #747B83;
 }

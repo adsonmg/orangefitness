@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title><?= h($this->fetch('title')) ?></title> 
+<title>Trainer Link - Encontre os melhores treinadores</title> 
 
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -16,6 +16,7 @@ echo $this->fetch('meta');
 echo $this->fetch('css');
 echo $this->fetch('script');
 ?>
+<link rel="stylesheet" href="https://blackrockdigital.github.io/startbootstrap-stylish-portfolio/font-awesome/css/font-awesome.min.css">
 
 
 

@@ -19,17 +19,17 @@
     <fieldset>
         <legend><?= __('Edit Trainer') ?></legend>
         <?php
-            echo $this->Form->input('users_id', ['options' => $users]);
             echo $this->Form->input('type_of_section');
-            echo $this->Form->input('bio');
-            echo $this->Form->input('rating');
-            echo $this->Form->input('rating_count_votes');
-            echo $this->Form->input('average_price');
+            echo $this->Form->input('bio', ['type' => 'textarea', 'escape' => false]);
             echo $this->Form->input('CREF');
             echo $this->Form->input('years_training');
             echo $this->Form->input('url');
-            echo $this->Form->input('number_views');
-            echo $this->Form->input('specialties._ids', ['options' => $specialties]);
+            //echo $this->Form->input('specialties._ids', ['options' => $specialties]);
+            echo $this->Form->input('specialties._ids', [
+                                'multiple' => 'checkbox',
+                                'options' => $specialties
+                            ]);
+            
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>

@@ -19,7 +19,8 @@
   <div class="container">
     <div class="row">
       <div class="col-md-8 col-md-offset-2 centered">
-        <h1>Welcome to our new app site.<br/>Sign up now & prepare to enjoy our service.</h1>
+        <h1 style="margin-bottom: 12px;">Encontre os melhores treinadores</h1>
+        <h3 style="margin-top:0px">Mais de <span style="font-weight: 400; color: #FE6055">1204</span> treinadores cadastrados</h3>
         <div class="mtb">
           <form role="form" action="register.php" method="post" enctype="plain"> 
             <input type="email" name="email" class="search-input" placeholder="Personal Trainer" required>
@@ -32,7 +33,56 @@
     </div><!--/row-->
   </div><!--/container-->
 </div><!-- /H -->
-
+<section id="services" class="services bg-primary">
+        <div class="container">
+            <div class="row text-center">
+                <div class="col-lg-10 col-lg-offset-1">
+                    <div class="row">
+                        <div class="col-md-3 col-sm-6">
+                            <div class="service-item">
+                                <span class="fa-stack fa-4x">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-bicycle fa-stack-1x text-primary"></i>
+                            </span>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="service-item">
+                                <span class="fa-stack fa-4x">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-heart fa-stack-1x text-primary"></i>
+                            </span>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="service-item">
+                                <span class="fa-stack fa-4x">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-male fa-stack-1x text-primary"></i>
+                            </span>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="service-item">
+                                <span class="fa-stack fa-4x">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-shield fa-stack-1x text-primary"></i>
+                            </span>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.row (nested) -->
+                </div>
+                <!-- /.col-lg-10 -->
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /.container -->
+    </section>
 <!--
 <div class="container ptb">
   <div class="row">

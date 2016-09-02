@@ -37,14 +37,41 @@ class TrainersTable extends Table
         $this->displayField('id');
         $this->primaryKey('id');
 
+        //A trainer profile belongs to an user
         $this->belongsTo('Users', [
             'foreignKey' => 'users_id',
             'joinType' => 'INNER'
         ]);
+        
+        //Many trainers can have many specialties
         $this->belongsToMany('Specialties', [
             'foreignKey' => 'trainer_id',
             'targetForeignKey' => 'specialty_id',
             'joinTable' => 'trainers_specialties'
+        ]);
+        
+        //A trainer has one group of social medias
+        $this->hasOne('SocialMedias', [
+            'foreignKey' => 'trainers_id',
+            'dependent' => true
+        ]);
+        
+        //A trainer has many telephones
+        $this->hasMany('Telephones', [
+            'foreignKey' => 'trainers_id',
+            'dependent' => true
+        ]);
+        
+        //A trainer has many certificates
+        $this->hasMany('Certificates', [
+            'foreignKey' => 'trainers_id',
+            'dependent' => true
+        ]);
+        
+        //A trainer can have many articles
+        $this->hasMany('Articles', [
+            'foreignKey' => 'trainers_id',
+            'dependent' => true
         ]);
     }
 

@@ -37,7 +37,7 @@ class TrainersController extends AppController
     public function view($id = null)
     {
         $trainer = $this->Trainers->get($id, [
-            'contain' => ['Users', 'Specialties']
+            'contain' => ['Users', 'Specialties', 'SocialMedias', 'Telephones', 'Certificates', 'Articles']
         ]);
 
         $this->set('trainer', $trainer);
