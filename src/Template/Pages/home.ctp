@@ -1,3 +1,14 @@
+<!-- Bootstrap core CSS -->
+    <?= $this->Html->css('bootstrap.css', ['block' => true]) ?>
+
+    <!-- Custom styles for this template -->
+   
+    <?= $this->Html->css('ionicons.min.css', ['block' => true]) ?>
+    <?= $this->Html->css('style.css', ['block' => true]) ?>
+    
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+     <?= $this->Html->script('ie10-viewport-bug-workaround.js', ['block' => true]) ?>
+    
 <div id="home-header">
     <div class="logo">Trainer<span style="font-family: 'Lato', sans-serif;font-weight: 200;">link</span></div>
   <div class="link hidden-xs">

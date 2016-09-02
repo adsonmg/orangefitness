@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- <title><?//= h($this->fetch('title')) ?></title> -->
-    <title>Trainer Link - Encontre o seu treinador</title>
+<title><?= h($this->fetch('title')) ?></title> 
 
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -18,16 +17,8 @@ echo $this->fetch('css');
 echo $this->fetch('script');
 ?>
 
-<!-- Bootstrap core CSS -->
-    <?= $this->Html->css('bootstrap.css') ?>
 
-    <!-- Custom styles for this template -->
-   
-    <?= $this->Html->css('ionicons.min.css') ?>
-    <?= $this->Html->css('style.css') ?>
-    
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-     <?= $this->Html->script('ie10-viewport-bug-workaround.js') ?>
+
 
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
