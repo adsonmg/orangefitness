@@ -42,11 +42,31 @@
         <h1 style="margin-bottom: 12px;">Encontre os melhores treinadores</h1>
         <h3 style="margin-top:0px">Mais de <span style="font-weight: 400; color: #FE6055">1204</span> treinadores cadastrados</h3>
         <div class="mtb">
+            <?= $this->Form->create(null, [
+                            'type' => 'get',
+                            'url' => [
+                                'controller' => 'Trainers',
+                                'action' => 'search'
+                                ]
+                    ]) ?>
+            <?= $this->Form->input('type', array('options' => ['Personal Trainer', 'Yoga', 'Crossfit', 'Corrida'], 
+                                                'class'=>'search-input',
+                                                'label' => false)
+                    ) ?>
+            <?= $this->Form->input('city',array('id' => 'Autocomplete', 
+                                                'class'=>'search-input',
+                                                'placeholder'=>'Digite uma cidade',
+                                                'label' => false)
+                    ) ?>
+            <?= $this->Form->button('Buscar', array('class'=>'btn btn-conf btn-input')) ?>
+            <?= $this->Form->end() ?>
+            <!--
           <form role="form" action="register.php" method="post" enctype="plain"> 
             <input type="text" name="email" class="search-input" placeholder="Personal Trainer" required>
             <input type="text" name="email" class="search-input" id="Autocomplete"  placeholder="Digite uma cidade" required>
             <button class='btn btn-conf btn-input' type="submit">Buscar</button>
           </form>
+            -->
         </div><!--/mt-->
         <h6><a href="#testimonial" class="help">Como funciona?</a></h6>
       </div>

@@ -11,10 +11,6 @@
     <h3><?= h($city->name) ?></h3>
     <table class="vertical-table">
         <tr>
-            <th><?= __('Uf') ?></th>
-            <td><?= h($city->uf) ?></td>
-        </tr>
-        <tr>
             <th><?= __('Name') ?></th>
             <td><?= h($city->name) ?></td>
         </tr>
@@ -23,8 +19,8 @@
             <td><?= $this->Number->format($city->id) ?></td>
         </tr>
         <tr>
-            <th><?= __('State') ?></th>
-            <td><?= $this->Number->format($city->state) ?></td>
+            <th><?= __('States Id') ?></th>
+            <td><?= $this->Number->format($city->states_id) ?></td>
         </tr>
     </table>
 </div>

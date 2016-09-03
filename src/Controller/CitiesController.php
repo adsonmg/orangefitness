@@ -109,7 +109,7 @@ class CitiesController extends AppController
         return $this->redirect(['action' => 'index']);
     }
     
-    /**
+     /**
      * Cities method
      *
      * Method used to load cities in inputs ajax
@@ -129,7 +129,8 @@ class CitiesController extends AppController
             $results = $this->Cities->find('all', [
                                            'conditions' => [
                                                'Cities.name LIKE ' => $name . '%'
-                                            ]
+                                            ],
+                                            'contain' => ['States']
                                       ]);
          
             //create and populate the array of results
@@ -137,8 +138,8 @@ class CitiesController extends AppController
         
             foreach($results as $result) {
                $resultArr[] = [
-                   'label' =>$result['name'].' - '.$result['uf'] ,
-                   'label' =>$result['name'].' - '.$result['uf']
+                   'label' =>$result['name'].' - '.$result['state']['uf'] ,
+                   'label' =>$result['name'].' - '.$result['state']['uf']
                    ];
             }
           
@@ -168,4 +169,5 @@ class CitiesController extends AppController
     {
         return true;
     }
+
 }

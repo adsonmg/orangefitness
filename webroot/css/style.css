@@ -110,7 +110,7 @@ a:focus {
 
 /* FORM CONFIGURATION */
 
-input {
+input, select {
         color:#5a5a5a;
 	font-size: 16px;
 	min-height: 40px;

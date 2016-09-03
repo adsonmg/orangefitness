@@ -15,9 +15,8 @@
     <fieldset>
         <legend><?= __('Edit City') ?></legend>
         <?php
-            echo $this->Form->input('state');
-            echo $this->Form->input('uf');
             echo $this->Form->input('name');
+            echo $this->Form->input('states_id');
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>

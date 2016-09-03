@@ -9,6 +9,8 @@ use Cake\Validation\Validator;
 /**
  * Cities Model
  *
+ * @property \Cake\ORM\Association\BelongsTo $States
+ *
  * @method \App\Model\Entity\City get($primaryKey, $options = [])
  * @method \App\Model\Entity\City newEntity($data = null, array $options = [])
  * @method \App\Model\Entity\City[] newEntities(array $data, array $options = [])
@@ -33,6 +35,11 @@ class CitiesTable extends Table
         $this->table('cities');
         $this->displayField('name');
         $this->primaryKey('id');
+
+        $this->belongsTo('States', [
+            'foreignKey' => 'states_id',
+            'joinType' => 'INNER'
+        ]);
     }
 
     /**
@@ -48,18 +55,23 @@ class CitiesTable extends Table
             ->allowEmpty('id', 'create');
 
         $validator
-            ->integer('state')
-            ->requirePresence('state', 'create')
-            ->notEmpty('state');
-
-        $validator
-            ->requirePresence('uf', 'create')
-            ->notEmpty('uf');
-
-        $validator
             ->requirePresence('name', 'create')
             ->notEmpty('name');
 
         return $validator;
+    }
+
+    /**
+     * Returns a rules checker object that will be used for validating
+     * application integrity.
+     *
+     * @param \Cake\ORM\RulesChecker $rules The rules object to be modified.
+     * @return \Cake\ORM\RulesChecker
+     */
+    public function buildRules(RulesChecker $rules)
+    {
+        $rules->add($rules->existsIn(['states_id'], 'States'));
+
+        return $rules;
     }
 }

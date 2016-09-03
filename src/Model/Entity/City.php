@@ -7,9 +7,8 @@ use Cake\ORM\Entity;
  * City Entity
  *
  * @property int $id
- * @property int $state
- * @property string $uf
  * @property string $name
+ * @property int $states_id
  */
 class City extends Entity
 {
