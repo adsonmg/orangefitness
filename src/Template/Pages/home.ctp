@@ -9,6 +9,26 @@
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
      <?= $this->Html->script('ie10-viewport-bug-workaround.js', ['block' => true]) ?>
     
+      <?php
+    use Cake\Routing\Router;
+    use Cake\View\Helper\UrlHelper;
+    
+     echo $this->Html->script('jquery-1.10.2.js', ['block' => true]);
+    echo $this->Html->script('jquery-ui.js', ['block' => true]);
+       echo $this->Html->css('//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css', ['block' => true]);
+
+    ?>
+    
+    <script type="text/javascript">
+      $(document).ready(function($){
+            $('#Autocomplete').autocomplete({
+            source:'<?php echo Router::url(array("controller" => "cities", "action" => "autoCompleteCities")); ?>',
+            minLength: 3
+        });  });
+    </script>
+    
+   
+    
 <div id="home-header">
     <div class="logo">Trainer<span style="font-family: 'Lato', sans-serif;font-weight: 200;">link</span></div>
   <div class="link hidden-xs">
@@ -23,8 +43,8 @@
         <h3 style="margin-top:0px">Mais de <span style="font-weight: 400; color: #FE6055">1204</span> treinadores cadastrados</h3>
         <div class="mtb">
           <form role="form" action="register.php" method="post" enctype="plain"> 
-            <input type="email" name="email" class="search-input" placeholder="Personal Trainer" required>
-            <input type="email" name="email" class="search-input" placeholder="Digite uma cidade" required>
+            <input type="text" name="email" class="search-input" placeholder="Personal Trainer" required>
+            <input type="text" name="email" class="search-input" id="Autocomplete"  placeholder="Digite uma cidade" required>
             <button class='btn btn-conf btn-input' type="submit">Buscar</button>
           </form>
         </div><!--/mt-->

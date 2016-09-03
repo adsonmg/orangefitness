@@ -80,3 +80,8 @@ Router::scope('/', function (RouteBuilder $routes) {
  * how to customize the loading of plugin routes.
  */
 Plugin::routes();
+
+/**
+ * Autocomplete stuff
+ */
+Router::extensions('json', 'xml');

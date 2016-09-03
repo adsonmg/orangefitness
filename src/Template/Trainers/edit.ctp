@@ -12,6 +12,7 @@
         <li><?= $this->Html->link(__('New User'), ['controller' => 'Users', 'action' => 'add']) ?></li>
         <li><?= $this->Html->link(__('List Specialties'), ['controller' => 'Specialties', 'action' => 'index']) ?></li>
         <li><?= $this->Html->link(__('New Specialty'), ['controller' => 'Specialties', 'action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('Logout'), ['controller' => 'Users', 'action' => 'logout']) ?></li>
     </ul>
 </nav>
 <div class="trainers form large-9 medium-8 columns content">
@@ -93,6 +94,7 @@
             <?php endforeach; ?>
         </table>
         <?php endif; ?>
+        <?= $this->Html->link(__('Add Telephones'), ['controller' => 'Telephones', 'action' => 'add']) ?>
     </div>
     
      <div class="related">
@@ -125,6 +127,7 @@
             <?php endforeach; ?>
         </table>
         <?php endif; ?>
+        <?= $this->Html->link(__('Add Certificates'), ['controller' => 'Certificates', 'action' => 'add']) ?>
     </div>
     
     <div class="related">
@@ -155,6 +158,7 @@
             <?php endforeach; ?>
         </table>
         <?php endif; ?>
+        <?= $this->Html->link(__('Add Articles'), ['controller' => 'Articles', 'action' => 'add']) ?>
     </div>
     
 </div>
