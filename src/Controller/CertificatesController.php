@@ -61,10 +61,10 @@ class CertificatesController extends AppController
             //Set trainer id
             $id = $this->Auth->user('id');
             $this->loadModel('Trainers');
-            $profile = $this->Trainers->find('all')
-                    ->where(['users_id =' => $id]);
-            $profile = $profile->toArray();
-            $certificate->trainers_id = $profile[0]['id'];
+            $profile = $this->Trainers->find('trainer', ['users_id' => $id])
+                    ->first()
+                    ->toArray();
+            $certificate->trainers_id = $profile['id'];
             
             if ($this->Certificates->save($certificate)) {
                 $this->Flash->success(__('The certificate has been saved.'));
@@ -97,10 +97,10 @@ class CertificatesController extends AppController
             //Set trainer id
             $id = $this->Auth->user('id');
             $this->loadModel('Trainers');
-            $profile = $this->Trainers->find('all')
-                    ->where(['users_id =' => $id]);
-            $profile = $profile->toArray();
-            $certificate->trainers_id = $profile[0]['id'];
+            $profile = $this->Trainers->find('trainer', ['users_id' => $id])
+                    ->first()
+                    ->toArray();
+            $certificate->trainers_id = $profile['id'];
             
             if ($this->Certificates->save($certificate)) {
                 $this->Flash->success(__('The certificate has been saved.'));
@@ -132,7 +132,7 @@ class CertificatesController extends AppController
             $this->Flash->error(__('The certificate could not be deleted. Please, try again.'));
         }
 
-        return $this->redirect(['action' => 'index']);
+        return $this->redirect($this->referer());
     }
     
     
@@ -144,7 +144,7 @@ class CertificatesController extends AppController
     public function isAuthorized($user) {
         $action = $this->request->params['action'];
         //view and add profile are alwayes allowed.
-        if(in_array($action, ['index', 'view', 'add'])){
+        if(in_array($action, ['index', 'add'])){
             return true;
         }
         
@@ -153,11 +153,12 @@ class CertificatesController extends AppController
             return false;
         }
         
-        //check that the profile belongs to the current user.
-        $id = $this->request->params['pass'][0];
-        $trainer = $this->Trainers->get($id);
-        if($trainer->users_id == $user['id']){
-            return true;
+        // Only the owner of an profile can edit and delete information
+        if (in_array($this->request->action, ['edit', 'delete'])) {
+            $certificateID = (int) $this->request->params['pass'][0];
+            if ($this->Certificates->isOwnedBy($certificateID, $user['id'])) {
+                return true;
+            }
         }
         
         parent::isAuthorized($user);

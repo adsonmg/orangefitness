@@ -82,4 +82,19 @@ class ArticlesTable extends Table
 
         return $rules;
     }
+    
+    
+    /**
+     * To tell whether or not the user is authorized to change stuff
+     * @param type $telephoneId
+     * @param type $trainerid
+     * @return type
+     */
+    public function isOwnedBy($articleId, $userId)
+    {
+        $trainerid = $this->Trainers->find('trainer', ['users_id' => $userId])
+                            ->first()
+                            ->toArray();
+        return $this->exists(['id' => $articleId, 'trainers_id' => $trainerid['id']]);
+    }
 }

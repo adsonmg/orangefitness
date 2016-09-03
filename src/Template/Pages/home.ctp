@@ -14,7 +14,7 @@
   <div class="link hidden-xs">
     <a href="#">Ajuda</a>
     <a href="#">Blog</a>
-    <a href="#">Área do Treinador</a>
+    <?= $this->Html->link(__('Área do treinador'), ['controller' => 'Users', 'action' => 'login']) ?>
   </div>
   <div class="container">
     <div class="row">

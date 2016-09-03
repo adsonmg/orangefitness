@@ -84,7 +84,7 @@ class TrainersController extends AppController
     {
         
         $trainer = $this->Trainers->get($id, [
-            'contain' => ['Specialties']
+            'contain' => ['Users', 'Specialties', 'SocialMedias', 'Telephones', 'Certificates', 'Articles']
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $trainer = $this->Trainers->patchEntity($trainer, $this->request->data);

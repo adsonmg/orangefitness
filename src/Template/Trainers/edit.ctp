@@ -34,4 +34,127 @@
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>
     <?= $this->Form->end() ?>
+    
+    <div class="related">
+        <h4><?= __('Social Media') ?></h4>
+        <?php if (!empty($trainer->social_media)): ?>
+        <table cellpadding="0" cellspacing="0">
+            <tr>
+                <th><?= __('Id') ?></th>
+                <th><?= __('Facebook') ?></th>
+                <th><?= __('Twitter') ?></th>
+                <th><?= __('Linkedin') ?></th>
+                <th><?= __('YouTube') ?></th>
+                <th><?= __('Email') ?></th>
+                <th class="actions"><?= __('Actions') ?></th>
+            </tr>
+            
+            <tr>
+                <td><?= h($trainer->social_media->id) ?></td>
+                <td><?= h($trainer->social_media->facebook) ?></td>
+                <td><?= h($trainer->social_media->twitter) ?></td>
+                <td><?= h($trainer->social_media->linkedin) ?></td>
+                <td><?= h($trainer->social_media->youtube) ?></td>
+                <td><?= h($trainer->social_media->email) ?></td>
+                <td class="actions">
+                    <?= $this->Html->link(__('Edit'), ['controller'=> 'SocialMedias', 'action' => 'edit', $trainer->social_media->id]) ?>
+                </td>
+            </tr>
+            
+            
+        </table>
+        
+        <?php endif; ?>
+     </div>
+    
+    <div class="related">
+        <h4><?= __('Telephones') ?></h4>
+        <?php if (!empty($trainer->telephones)): ?>
+        <table cellpadding="0" cellspacing="0">
+            <tr>
+                <th><?= __('Id') ?></th>
+                <th><?= __('Telephone') ?></th>
+                <th class="actions"><?= __('Actions') ?></th>
+            </tr>
+            <?php foreach ($trainer->telephones as $telephones): ?>
+            <tr>
+                <td><?= h($telephones->id) ?></td>
+                <td><?= h($telephones->telephone) ?></td>
+                <td class="actions">
+                    <?= $this->Html->link(__('Edit'), ['controller' => 'Telephones', 'action' => 'edit', $telephones->id]) ?>
+                    <?= $this->Form->postLink(
+                            __('Delete'),
+                            ['controller' => 'Telephones', 'action' => 'delete', $telephones->id],
+                            ['confirm' => __('Are you sure you want to delete # {0}?', $telephones->id)]
+                        )
+                    ?>
+                </td>
+            </tr>
+            <?php endforeach; ?>
+        </table>
+        <?php endif; ?>
+    </div>
+    
+     <div class="related">
+        <h4><?= __('Certificates') ?></h4>
+        <?php if (!empty($trainer->certificates)): ?>
+        <table cellpadding="0" cellspacing="0">
+            <tr>
+                <th><?= __('Id') ?></th>
+                <th><?= __('Title') ?></th>
+                <th><?= __('Descritpion') ?></th>
+                <th><?= __('Image') ?></th>
+                <th class="actions"><?= __('Actions') ?></th>
+            </tr>
+            <?php foreach ($trainer->certificates as $certificates): ?>
+            <tr>
+                <td><?= h($certificates->id) ?></td>
+                <td><?= h($certificates->title) ?></td>
+                <td><?= h($certificates->description) ?></td>
+                <td><?= h($certificates->image) ?></td>
+                <td class="actions">
+                    <?= $this->Html->link(__('Edit'), ['controller' => 'Certificates', 'action' => 'edit', $certificates->id]) ?>
+                    <?= $this->Form->postLink(
+                            __('Delete'),
+                            ['controller' => 'Certificates', 'action' => 'delete', $certificates->id],
+                            ['confirm' => __('Are you sure you want to delete # {0}?', $certificates->id)]
+                        )
+                    ?>
+                </td>
+            </tr>
+            <?php endforeach; ?>
+        </table>
+        <?php endif; ?>
+    </div>
+    
+    <div class="related">
+        <h4><?= __('Articles') ?></h4>
+        <?php if (!empty($trainer->articles)): ?>
+        <table cellpadding="0" cellspacing="0">
+            <tr>
+                <th><?= __('Id') ?></th>
+                <th><?= __('Title') ?></th>
+                <th><?= __('Description') ?></th>
+                <th class="actions"><?= __('Actions') ?></th>
+            </tr>
+            <?php foreach ($trainer->articles as $articles): ?>
+            <tr>
+                <td><?= h($articles->id) ?></td>
+                <td><?= h($articles->title) ?></td>
+                <td><?= h($articles->description) ?></td>
+                <td class="actions">
+                    <?= $this->Html->link(__('Edit'), ['controller' => 'Articles', 'action' => 'view', $articles->id]) ?>
+                    <?= $this->Form->postLink(
+                            __('Delete'),
+                            ['controller' => 'Articles', 'action' => 'delete', $articles->id],
+                            ['confirm' => __('Are you sure you want to delete # {0}?', $articles->id)]
+                        )
+                    ?>
+                </td>
+            </tr>
+            <?php endforeach; ?>
+        </table>
+        <?php endif; ?>
+    </div>
+    
 </div>

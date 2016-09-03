@@ -127,4 +127,16 @@ class TrainersTable extends Table
 
         return $rules;
     }
+    
+    /**
+     * Custom method to find a trainer by its user_id
+     * @param Query $query
+     * @param array $options
+     * @return type
+     */
+    public function findTrainer(Query $query, array $options)
+    {
+        $userId = $options['users_id'];
+        return $query->where(['users_id' => $userId]);
+    }
 }

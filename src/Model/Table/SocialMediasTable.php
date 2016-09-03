@@ -83,8 +83,23 @@ class SocialMediasTable extends Table
     public function buildRules(RulesChecker $rules)
     {
         $rules->add($rules->isUnique(['email']));
+        $rules->add($rules->isUnique(['trainers_id']));
         $rules->add($rules->existsIn(['trainers_id'], 'Trainers'));
 
         return $rules;
+    }
+    
+    /**
+     * To tell whether or not the user is authorized to change stuff
+     * @param type $telephoneId
+     * @param type $trainerid
+     * @return type
+     */
+    public function isOwnedBy($socialMediaId, $userId)
+    {
+        $trainerid = $this->Trainers->find('trainer', ['users_id' => $userId])
+                            ->first()
+                            ->toArray();
+        return $this->exists(['id' => $socialMediaId, 'trainers_id' => $trainerid['id']]);
     }
 }

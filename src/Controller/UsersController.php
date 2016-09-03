@@ -144,11 +144,11 @@ class UsersController extends AppController
                     $profile = $this->Trainers->find('all')
                             ->where(['users_id =' => $id]);
                     
-                    
-                    if($profile->toArray() != null){
+                    $profile = $profile->toArray();
+                    if($profile != null){
                         //Trainer  exists
                         //Redirects to trainer's homepage
-                        return $this->redirect(['controller' => 'Trainers', 'action' => 'edit']);
+                        return $this->redirect(['controller' => 'Trainers', 'action' => 'edit', $profile[0]['id']]);
                     }else{
                         //Trainer doesn't  exist
                         //Creates one
