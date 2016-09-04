@@ -26,6 +26,26 @@ class TrainersController extends AppController
         $this->set(compact('trainers'));
         $this->set('_serialize', ['trainers']);
     }
+    
+    public function search()
+    {
+        if($this->request->is('get')){
+            
+            $specilaty = $this->request->query('type');
+
+            $this->paginate = [
+                'contain' => ['Users', 'Specialties']
+            ];
+            $query = $this->Trainers->find('trainers',[
+                'specialty_id' => $specilaty
+            ]);
+            
+            $trainers = $this->paginate($query);
+                        
+            $this->set(compact('trainers'));
+            $this->set('_serialize', ['trainers']);
+        }
+    }
 
     /**
      * View method
@@ -62,7 +82,7 @@ class TrainersController extends AppController
             $this->log($trainer->users_id);
             if ($this->Trainers->save($trainer)) {
                 $this->Flash->success(__('The trainer has been saved.'));
-                return $this->redirect(['action' => 'index']);
+                return $this->redirect(['action' => 'edit']);
             } else {
                 $this->Flash->error(__('The trainer could not be saved. Please, try again.'));
             }
@@ -91,7 +111,7 @@ class TrainersController extends AppController
             if ($this->Trainers->save($trainer)) {
                 $this->Flash->success(__('The trainer has been saved.'));
 
-                return $this->redirect(['action' => 'index']);
+                return $this->redirect(['action' => 'edit']);
             } else {
                 $this->Flash->error(__('The trainer could not be saved. Please, try again.'));
             }
@@ -130,7 +150,7 @@ class TrainersController extends AppController
     public function isAuthorized($user) {
         $action = $this->request->params['action'];
         //view and add profile are alwayes allowed.
-        if(in_array($action, ['view', 'add'])){
+        if(in_array($action, ['view', 'add', 'search'])){
             return true;
         }
         
@@ -152,6 +172,7 @@ class TrainersController extends AppController
     public function initialize()
     {
         parent::initialize();
+        $this->Auth->allow(['view']);
         $this->viewBuilder()->layout('cake_layout');
     }
 }

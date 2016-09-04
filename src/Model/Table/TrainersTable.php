@@ -139,4 +139,24 @@ class TrainersTable extends Table
         $userId = $options['users_id'];
         return $query->where(['users_id' => $userId]);
     }
+    
+    /**
+     * findTrainer Method
+     * 
+     * The $query argument is a query builder instance
+     * The $options array will contain the 'tags' option we passed
+     * to find('trainer') in our controller action
+     */
+    public function findTrainers(Query $query, array $options)
+    {
+        //debug($options['specialty_id']);
+        return $this->find('all')
+                    ->contain(['Users','Specialties'])
+                    ->innerJoinWith('Specialties', function ($q) use ($options) {
+                        return $q->where([
+                                    //We can use IN clause to replace many OR conditions
+                                    'Specialties.id IN' => $options['specialty_id']
+                                ]);
+                    });
+    }
 }

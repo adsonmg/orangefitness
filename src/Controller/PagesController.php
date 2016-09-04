@@ -42,11 +42,15 @@ class PagesController extends AppController
         $count = count($path);
         if (!$count) {
             return $this->redirect('/');
+            
         }
         $page = $subpage = null;
 
         if (!empty($path[0])) {
             $page = $path[0];
+            $this->loadModel('Specialties');
+            $specialties = $this->Specialties->find('list', ['limit' => 200]);
+            $this->set(compact('specialties'));
         }
         if (!empty($path[1])) {
             $subpage = $path[1];
@@ -63,6 +67,6 @@ class PagesController extends AppController
         }
     }
     
-    
+  
     
 }

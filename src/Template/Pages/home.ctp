@@ -49,7 +49,7 @@
                                 'action' => 'search'
                                 ]
                     ]) ?>
-            <?= $this->Form->input('type', array('options' => ['Personal Trainer', 'Yoga', 'Crossfit', 'Corrida'], 
+            <?= $this->Form->input('type', array('options' => $specialties, 
                                                 'class'=>'search-input',
                                                 'label' => false)
                     ) ?>
