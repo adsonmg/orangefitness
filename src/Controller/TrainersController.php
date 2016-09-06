@@ -31,7 +31,7 @@ class TrainersController extends AppController
     {
         if($this->request->is('get')){
             
-            $specilaty = $this->request->query('type');
+            $specilaty = $this->request->query('specialties');
 
             $this->paginate = [
                 'contain' => ['Users', 'Specialties']

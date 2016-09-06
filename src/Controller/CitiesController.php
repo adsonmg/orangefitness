@@ -138,8 +138,8 @@ class CitiesController extends AppController
         
             foreach($results as $result) {
                $resultArr[] = [
-                   'label' =>$result['name'].' - '.$result['state']['uf'] ,
-                   'label' =>$result['name'].' - '.$result['state']['uf']
+                   'label' =>$result['name'].', '.$result['state']['uf'] ,
+                   'label' =>$result['name'].', '.$result['state']['uf']
                    ];
             }
           

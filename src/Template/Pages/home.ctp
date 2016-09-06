@@ -49,14 +49,32 @@
                                 'action' => 'search'
                                 ]
                     ]) ?>
-            <?= $this->Form->input('type', array('options' => $specialties, 
+            
+            <?= $this->Form->input('specialties', array('options' => $specialties, 
                                                 'class'=>'search-input',
-                                                'label' => false)
+                                                'label' => false,
+                                                'placeholder' => 'O que você procura?'
+                        )
                     ) ?>
             <?= $this->Form->input('city',array('id' => 'Autocomplete', 
                                                 'class'=>'search-input',
                                                 'placeholder'=>'Digite uma cidade',
-                                                'label' => false)
+                                                'label' => false
+                        )
+                    ) ?>
+            
+            <?= $this->Form->input('city',array('type' => 'hidden',
+                                                'name' => 'genre',
+                                                'value' => 3
+                        
+                        )
+                    ) ?>
+            
+            <?= $this->Form->input('city',array('type' => 'hidden',
+                                                'name' => 'section_type',
+                                                'value' => 'both'
+                        
+                        )
                     ) ?>
             <?= $this->Form->button('Buscar', array('class'=>'btn btn-conf btn-input')) ?>
             <?= $this->Form->end() ?>

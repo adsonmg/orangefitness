@@ -50,6 +50,11 @@ class PagesController extends AppController
             $page = $path[0];
             $this->loadModel('Specialties');
             $specialties = $this->Specialties->find('list', ['limit' => 200]);
+            $specialties = $specialties->toArray();
+            
+            //Add placeholder to specialties
+            array_unshift($specialties, __("O que você procura?"));
+            
             $this->set(compact('specialties'));
         }
         if (!empty($path[1])) {
