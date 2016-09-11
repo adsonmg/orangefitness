@@ -32,6 +32,7 @@ class TrainersController extends AppController
         if($this->request->is('get')){
             
             $specilaty = $this->request->query('specialties');
+            $city = $this->request->query('city');
 
             $this->paginate = [
                 'contain' => ['Users', 'Specialties']
@@ -42,7 +43,7 @@ class TrainersController extends AppController
             
             $trainers = $this->paginate($query);
                         
-            $this->set(compact('trainers'));
+            $this->set(compact('trainers', 'city'));
             $this->set('_serialize', ['trainers']);
         }
     }
@@ -173,6 +174,5 @@ class TrainersController extends AppController
     {
         parent::initialize();
         $this->Auth->allow(['view']);
-        $this->viewBuilder()->layout('cake_layout');
     }
 }
