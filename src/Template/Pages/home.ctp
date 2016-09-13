@@ -30,7 +30,7 @@
    
     
 <div id="home-header">
-    <div class="logo">Trainer<span style="font-family: 'Lato', sans-serif;font-weight: 200;">link</span></div>
+    <div class="logo"><?= $this->Html->image('logo.png', ['alt' => 'Trainer Link']); ?></div>
   <div class="link hidden-xs">
     <a href="#">Ajuda</a>
     <a href="#">Blog</a>
