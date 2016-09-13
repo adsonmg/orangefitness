@@ -16,6 +16,7 @@ echo $this->fetch('meta');
 echo $this->fetch('css');
 echo $this->fetch('script');
 ?>
+<?= $this->Html->css('tl-style.css') ?>
 <link rel="stylesheet" href="https://blackrockdigital.github.io/startbootstrap-stylish-portfolio/font-awesome/css/font-awesome.min.css">
 
 

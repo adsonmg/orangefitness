@@ -4,7 +4,7 @@
     <!-- Custom styles for this template -->
    
     <?= $this->Html->css('ionicons.min.css', ['block' => true]) ?>
-    <?= $this->Html->css('style.css', ['block' => true]) ?>
+    <?= $this->Html->css('tl-home-style.css', ['block' => true]) ?>
     
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
      <?= $this->Html->script('ie10-viewport-bug-workaround.js', ['block' => true]) ?>
@@ -30,12 +30,9 @@
    
     
 <div id="home-header">
-    <div class="logo"><?= $this->Html->image('logo.png', ['alt' => 'Trainer Link']); ?></div>
-  <div class="link hidden-xs">
-    <a href="#">Ajuda</a>
-    <a href="#">Blog</a>
-    <?= $this->Html->link(__('Área do treinador'), ['controller' => 'Users', 'action' => 'login']) ?>
-  </div>
+    <!-- header -->
+    <?= $this->element('header'); ?>
+    <!-- end header -->
   <div class="container">
     <div class="row">
       <div class="col-md-8 col-md-offset-2 centered">
@@ -98,37 +95,33 @@
                     <div class="row">
                         <div class="col-md-3 col-sm-6">
                             <div class="service-item">
-                                <span class="fa-stack fa-4x">
-                                <i class="fa fa-circle fa-stack-2x"></i>
-                                <i class="fa fa-bicycle fa-stack-1x text-primary"></i>
-                            </span>
+                                    <div class="img-cont">  
+                                        <?= $this->Html->image('tl1.png'); ?>
+                                    </div>
                                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
                             </div>
                         </div>
                         <div class="col-md-3 col-sm-6">
                             <div class="service-item">
-                                <span class="fa-stack fa-4x">
-                                <i class="fa fa-circle fa-stack-2x"></i>
-                                <i class="fa fa-heart fa-stack-1x text-primary"></i>
-                            </span>
+                                    <div class="img-cont">  
+                                        <?= $this->Html->image('tl2.png'); ?>
+                                    </div>
                                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
                             </div>
                         </div>
                         <div class="col-md-3 col-sm-6">
                             <div class="service-item">
-                                <span class="fa-stack fa-4x">
-                                <i class="fa fa-circle fa-stack-2x"></i>
-                                <i class="fa fa-male fa-stack-1x text-primary"></i>
-                            </span>
+                                    <div class="img-cont">  
+                                        <?= $this->Html->image('tl3.png'); ?>
+                                    </div>
                                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
                             </div>
                         </div>
                         <div class="col-md-3 col-sm-6">
                             <div class="service-item">
-                                <span class="fa-stack fa-4x">
-                                <i class="fa fa-circle fa-stack-2x"></i>
-                                <i class="fa fa-shield fa-stack-1x text-primary"></i>
-                            </span>
+                                    <div class="img-cont">  
+                                        <?= $this->Html->image('tl4.png'); ?>
+                                    </div>
                                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
                             </div>
                         </div>
@@ -281,11 +274,11 @@
 
 <div id="sep">
   <div class="container">
-    <div class="row centered">
-      <div class="col-md-8 col-md-offset-2">
-        <h1>Join your experiences with the people you care more. Let us help you.</h1>
+    <div class="row">
+      <div class="col-md-6 col-md-offset-2">
+        <h1>Treinador?</h1>
         <h4>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.</h4>
-        <p><button class="btn btn-conf-2 btn-input">Learn More</button></p>
+        <p><button class="btn btn-conf-2 btn-input">Começar</button></p>
       </div><!--/col-md-8-->
     </div>
   </div>

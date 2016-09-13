@@ -1,0 +1,304 @@
+/* 
+    Created on : 13/09/2016, 00:27:52
+    Author     : adson
+*/
+
+@import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700);
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Source Sans Pro', sans-serif;
+}
+
+body {
+    font-size: 14px;
+    font-family: 'Source Sans Pro', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    background: #E4E4E4;
+}
+
+html,
+body {
+	height: 100%;
+}
+
+.alignleft { float: left; }
+.alignright { float: right; }
+.aligncenter {
+	margin-left: auto;
+	margin-right: auto;
+	display: block;
+	clear: both;
+}
+
+.left-align{
+    text-align: left;
+}
+
+.centered {text-align: center}
+
+.clear {
+	clear: both;
+	display: block;
+	font-size: 0;
+	height: 0;
+	line-height: 0;
+	width:100%;
+}
+::-moz-selection  {
+	color: #fff;
+	text-shadow:none;
+	background:#2B2E31;
+}
+::selection {
+	color: #fff;
+	text-shadow:none;
+	background:#2B2E31;
+}
+*,
+*:after,
+*:before {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	padding: 0;
+	margin: 0;
+}
+a { 
+	padding: 0;
+	margin: 0;
+	text-decoration: none; 
+	-webkit-transition: background-color .4s linear, color .4s linear;
+	-moz-transition: background-color .4s linear, color .4s linear;
+	-o-transition: background-color .4s linear, color .4s linear;
+	-ms-transition: background-color .4s linear, color .4s linear;
+	transition: background-color .4s linear, color .4s linear;
+	color: #1abc9c;
+}
+a:hover,
+a:focus {
+  text-decoration: none;
+  color:#696E74;
+}
+
+.nopadding {
+	padding: 0px !important;
+	margin: 0px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Source Sans Pro', sans-serif;
+	font-weight: 300;
+}
+
+p { 
+	padding: 0; 
+	margin-bottom: 12px; 
+     font-family: 'Source Sans Pro', sans-serif;
+	font-weight: 300;
+	font-size: 16px; 
+	line-height: 26px;
+	letter-spacing: 1px;
+	color: #666; 
+	margin-top: 10px; 
+}
+
+.mt {margin-top: 50px;}
+.mb {margin-bottom: 50px;}
+.mtb {margin-top: 50px; margin-bottom: 50px;}
+.mtb2 { margin-top: 100px; margin-bottom: 100px;}
+.ptb {padding-top: 80px; padding-bottom: 80px;}
+
+/* Header 
+----------------------------------------------*/
+.header {
+    position: absolute;
+    width: 100%;
+    background: transparent;
+    z-index: 50;
+    border-radius: 0;
+    top: 0px;
+}
+
+.navbar-inverse .navbar-toggle {
+    border-color: #CC4646;
+    background-color: #CC4646;
+}
+.header .navbar {
+margin: 0;
+background: transparent !important;
+}
+    .navbar-inverse .navbar-toggle .icon-bar {
+        /*background-color: #CC4646;*/;
+    }
+
+    .navbar-inverse .navbar-toggle:hover, .navbar-inverse .navbar-toggle:focus {
+        background: #CC4646;
+    }
+
+.navbar-inverse .navbar-nav > li > a:hover, .navbar-inverse .navbar-nav > li > a:focus {
+    color: #FFF;
+}
+
+.navbar-inverse .navbar-toggle:hover .icon-bar {
+    background: #fff;
+}
+.navbar-inverse .navbar-nav > li > a {
+	color: #FFF;
+}
+.navbar-inverse .navbar-nav > li > a:hover, .navbar-inverse .navbar-nav > li > a:focus {
+color: #FFFFFF;
+}
+.navbar-inverse .navbar-nav > .active > a, .navbar-inverse .navbar-nav > .active > a:hover, .navbar-inverse .navbar-nav > .active > a:focus {
+color: #FFFFFF;
+background: none;
+}	
+.navbar-toggle {
+    margin: 17px;
+}
+
+/*----Nav ----*/
+.header .navbar-brand {
+    float: left;
+    padding: 16px 15px;
+    line-height: 18px;
+    height: 50px;
+    /*color:#CC4646;*/;
+}
+
+.navbar-brand b {
+    color: #fff;
+    font-weight:800;
+}
+
+.logo {
+    font-size: 2.2em;
+    text-shadow: none;
+    margin: 8px 0 0 0;
+}
+
+.logo a {
+    color: #FFF;
+}
+
+.header .navbar {
+    margin: 0;
+    background: #fff;
+    border: 0;
+}
+
+.navbar-inverse .navbar-nav > li > a {
+    font-size: 1.2em;
+    line-height: normal;
+    margin: 20px 10px;
+    padding: 6px 10px !important;
+    border-radius: 5px;
+}
+
+.navbar-inverse .navbar-nav > .active > a, .navbar-inverse .navbar-nav > .active > a:hover, .navbar-inverse .navbar-nav > .active > a:focus {
+    color: #fff;
+    background: none;
+}
+
+.navbar-nav > li:hover > a {
+    color: #fff;
+}
+
+.header .navbar-nav > li > a {
+    padding: 25px 18px;
+}
+
+
+.noPadd {
+    padding: 0;
+}
+
+
+.darkBg {
+    background: rgb(44, 44, 44);
+}
+
+.darkBg .fa {
+    color: #CC4646;
+}
+
+.navbar-nav {
+    float: right;
+}
+.navbar-collapse{
+   
+}
+
+/* End Header 
+----------------------------------------------*/
+/* Footer
+----------------------------------------------*/
+#f {
+	padding-top: 60px;
+	padding-bottom: 60px;
+	background: #2f2f2f;
+	color: white;
+}
+
+.ft-content{
+    width: 60%;
+}
+
+#f h5 {
+	margin-top: 30px;
+	letter-spacing: 1px;
+}
+
+#f i {
+    
+    font-size: 25px;
+    margin: 8px;
+}
+
+#f a {
+	color: #b9b9b9;
+}
+
+#f a:hover {
+	color: #03C9A9;
+}
+
+/*Services*/
+.services {
+    padding: 50px 0;
+}
+
+.bg-primary {
+    color: #F4F4F4;
+    background-color: #F4F4F4;
+}
+
+.fa-stack-1x, .fa-stack-2x {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    text-align: center;
+}
+
+.fa {
+    display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    transform: translate(0, 0);
+}
+
+.text-primary {
+    color: #747B83;
+}
+
+
+#f h5 {
+    margin-top: 30px;
+    letter-spacing: 1px;
+}
+/* End Footer
+----------------------------------------------*/
