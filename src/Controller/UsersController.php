@@ -178,7 +178,7 @@ class UsersController extends AppController
     {
         parent::initialize();
         $this->Auth->allow(['logout', 'register']);
-        $this->viewBuilder()->layout('cake_layout');
+        //$this->viewBuilder()->layout('cake_layout');
     }
 
 }

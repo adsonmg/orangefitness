@@ -134,117 +134,75 @@
         </div>
         <!-- /.container -->
     </section>
-<!--
+
 <div class="container ptb">
   <div class="row">
+    <h2 class="centered">Explore</h2>
+    <h4 class="mb centered">Encontre profissionais qualificados</h4>
     <div class="col-md-6">
-      <h2>All the features you want in this kind of apps you'll got it here.</h2>
-      <p class="mt">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
-      <p class="store">
-        <a href="#"><img src="assets/img/app-store.png" height="50" alt=""></a>
-        <a href="#"><img src="assets/img/google-play.png" height="50" alt=""></a>
-      </p>
-    </div>
-    <div class="col-md-6">
-      <img src="assets/img/phone.png" class="img-responsive mt" alt="">
-    </div>
-  </div><!--/row-
-</div><!--/container-
--->
+        <div class="jumbotron">
 
-<div class="container ptb">
-  <div class="row centered">
-    <h2 class="mb">Our Pricing Model<br/>It's Quite Easy To Understand.</h2>
-    <div class="col-md-4">
-      <div class="price-table">
-          <div class="p-head">
-            Standard
-          </div>
-          <div class="p-body">
-            <ul class="features">
-              <li>10GB Storage Space</li>
-              <li>Free Support</li>
-              <li>100 Users</li>
-              <li>100GB Bandwith</li>
-            </ul>
-            <div class="price">
-              <span class="sub">$</span>
-              <span class="detail">29</span>
-              <span class="sub">/mo.</span>
-            </div><!--/price-->
-            <button class="btn btn-conf-2 btn-input">Ver Perfil</button>
-          </div><!--/p-body-->
-      </div><!--/price-table-->
+            <div class="row">
+                <div class="col-xs-12 col-sm-4 col-lg-4 text-right">
+                    <!-- Profile foto -->
+                    <div class="foto centered">
+                        <img src="http://cdn.shopify.com/s/files/1/0535/6917/products/personaltrainershirt.jpeg?v=1414445691" class="foto-profile img-circle" alt="Ukieweb">
+
+                    </div>
+                    <!-- end your foto -->
+                </div>
+                <div class="col-xs-12 col-sm-8 col-lg-8">
+                    <!-- Your Name -->
+                    <h3 class="title">Edson Nascimento</h3>
+                    <!-- Your Profession -->
+                    <h5 class="sub-title">Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+                        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi
+                        ut aliquip ex ea commodo consequat.
+                    </h5>
+                    <p>
+                        <a href="#" class="btn btn-conf-2 btn-input" role="Button">Ver perfil</a>                                  
+
+                    </p>
+                </div>
+            </div>
+        </div>
     </div><!--/col-md-4-->
 
-     <div class="col-md-4">
-      <div class="price-table">
-          <div class="p-head">
-            Business
-          </div>
-          <div class="p-body">
-            <ul class="features">
-              <li>50GB Storage Space</li>
-              <li>Free Support</li>
-              <li>500 Users</li>
-              <li>500GB Bandwith</li>
-            </ul>
-            <div class="price">
-              <span class="sub">$</span>
-              <span class="detail">49</span>
-              <span class="sub">/mo.</span>
-            </div><!--/price-->
-            <button class="btn btn-conf-2 btn-input">Ver Perfil</button>
-          </div><!--/p-body-->
-      </div><!--/price-table-->
+     <div class="col-md-6">
+         <div class="jumbotron">
+
+            <div class="row">
+                <div class="col-xs-12 col-sm-4 col-lg-4 text-right">
+                    <!-- Profile foto -->
+                    <div class="foto centered">
+                        <img src="http://cdn.shopify.com/s/files/1/0535/6917/products/personaltrainershirt.jpeg?v=1414445691" class="foto-profile img-circle" alt="Ukieweb">
+
+                    </div>
+                    <!-- end your foto -->
+                </div>
+                <div class="col-xs-12 col-sm-8 col-lg-8">
+                    <!-- Your Name -->
+                    <h3 class="title">Edson Nascimento</h3>
+                    <!-- Your Profession -->
+                    <h5 class="sub-title">Duis aute irure dolor in reprehenderit in voluptate velit 
+                        esse cillum dolore eu fugiat nulla pariatur. 
+                        Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia 
+                        deserunt mollit anim id est laborum.
+                    </h5>
+                    <p>
+                        <a href="#" class="btn btn-conf-2 btn-input" role="Button">Ver perfil</a>                                  
+
+
+                    </p>
+                </div>
+            </div>
+        </div>
     </div><!--/col-md-4-->
 
-     <div class="col-md-4">
-      <div class="price-table">
-          <div class="p-head">
-            Corporate
-          </div>
-          <div class="p-body">
-            <ul class="features">
-              <li>100GB Storage Space</li>
-              <li>Free Support</li>
-              <li>10,000 Users</li>
-              <li>3TB Bandwith</li>
-            </ul>
-            <div class="price">
-              <span class="sub">$</span>
-              <span class="detail">89</span>
-              <span class="sub">/mo.</span>
-            </div><!--/price-->
-            <button class="btn btn-conf-2 btn-input">Ver Perfil</button>
-          </div><!--/p-body-->
-      </div><!--/price-table-->
-    </div><!--/col-md-4-->
   </div><!--/row-->
 </div><!--/container-->
-<!--
-<div id="g">
-  <div class="container">
-    <div class="row sponsor centered">
-      <div class="col-sm-2 col-sm-offset-1">
-        <img src="assets/img/client1.png" alt="">
-      </div>
-      <div class="col-sm-2">
-        <img src="assets/img/client3.png" alt="">
-      </div>
-      <div class="col-sm-2">
-        <img src="assets/img/client2.png" alt="">
-      </div>
-      <div class="col-sm-2">
-        <img src="assets/img/client4.png" alt="">
-      </div>
-      <div class="col-sm-2">
-        <img src="assets/img/client5.png" alt="">
-      </div>
-    </div><!--/row-
-  </div>
-</div><!--/g-
--->
+
 <div id="testimonial">
   <div class="container">
     <div class="row">
@@ -253,16 +211,16 @@
           <!-- Wrapper for slides -->
           <div class="carousel-inner">
             <div class="item active">
-              <h3>I enjoyed so much the last edition of Landing Sumo, that I bought the tickets for the new one edition of the event the first day.</h3>
-              <h5><tgr>DAVID JHONSON</tgr></h5>
+              <h3>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. </h3>
+              <h5><tgr>The Rock</tgr></h5>
             </div>
             <div class="item">
-              <h3>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.</h3>
-              <h5><tgr>MARK LAWRENCE</tgr></h5>
+              <h3>Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit.</h3>
+              <h5><tgr>Vin Diesel</tgr></h5>
             </div>
             <div class="item">
-              <h3>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration, by injected humour.</h3>
-              <h5><tgr>LISA SMITH</tgr></h5>
+              <h3>Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur.</h3>
+              <h5><tgr>Arnold</tgr></h5>
             </div>
           </div>
         </div><!--/Carousel-->

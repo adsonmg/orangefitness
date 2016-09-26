@@ -14,6 +14,15 @@
 .navbar-nav {
     float: right;
 }
+
+.search-input {
+    float: none !important;
+    margin-right: 0px !important;
+}
+
+.btn-conf {
+    padding: 11px 28px 11px 28px !important;
+}
 </style>
     
 <!-- header -->
@@ -35,40 +44,27 @@
 </section><!--/#home-->
 
 <section id="search-bar">
-    <div class="row">
-      <div class="col-md-8 col-md-offset-2 centered">
-            <form method="get" accept-charset="utf-8" action="/trainerlink/trainers/search">            
-                <div class="input select" ><select name="specialties" class="search-input" placeholder="O que você procura?" id="specialties">
-                        <option value="0">O que você procura?</option>
-                        <option value="1">IDOSOS</option>
-                        <option value="2">DIABETICOS</option>
-                        <option value="3">CARDIOPATAS</option>
-                        <option value="4">BODYBUILDERS</option>
-                        <option value="5">TREINAMENTO FUNCIONAL</option>
-                        <option value="6">CORRIDA</option>
-                        <option value="7">CICLISMO</option>
-                        <option value="8">NATAÇÂO</option>
-                        <option value="9">TRIATLON</option>
-                        <option value="10">CRIANÇAS</option>
-                        <option value="11">ADOLESCENTES</option>
-                        <option value="12">TREINAMENTO ESPORTIVO</option>
-                        <option value="13">GESTANTES</option>
-                        <option value="14">OBESOS</option>
-                        <option value="15">DEFICIENTES FÍSICOS</option>
-                        <option value="16">HIPERTENSOS</option>
-                        <option value="17">HALTEROFILISMO</option>
-                        <option value="18">LUTAS</option>
-                    </select>
-                </div>            
-                <div class="input text">
-                    <input type="text" name="city" id="Autocomplete" class="search-input ui-autocomplete-input" placeholder="Digite uma cidade" autocomplete="off" value="<?=$city?>">
-                </div>            
-                <input type="hidden" name="genre" id="city" value="3">            
-                <input type="hidden" name="section_type" id="city" value="both">            
-                <button class="btn btn-conf btn-input" type="submit">Buscar</button>            
-            </form>
-      </div><!--/.col-->
-    </div><!--/.row-->
+    <div class="container">
+        <div class="row">
+          <div class="col-md-8 col-md-offset-2 col-sm-12 col-sm-offset-0 centered">
+              <form method="get" accept-charset="utf-8" action="/trainerlink/trainers/search" class="form-inline">            
+                    <div class="col-md-5" >
+                        <select name="specialties" class="search-input form-control" placeholder="O que você procura?" id="specialties">
+                            <option value="0">O que você procura?</option>
+                        </select>
+                    </div>            
+                    <div class="col-md-5">
+                        <input type="text" name="city" id="Autocomplete" class="search-input ui-autocomplete-input form-control" placeholder="Digite uma cidade" autocomplete="off" value="<?=$city?>">
+                    </div>            
+                    <input type="hidden" name="genre" id="city" value="3">            
+                    <input type="hidden" name="section_type" id="city" value="both">       
+                    <div class="col-md-2">
+                    <button class="btn btn-conf btn-input" type="submit">Buscar</button>         
+                    </div>
+                </form>
+          </div><!--/.col-->
+        </div><!--/.row-->
+    </div>
 </section><!--/#search-bar-->
 
 <section id="content" class="sec-content">
@@ -80,7 +76,7 @@
         <div class="row">
             <!-- item -->
             <div class="col-md-3 sidebar">
-                <ul class="nav nav-sidebar">
+                <ul class="nav nav-sidebar" >
                    <li><a href="#">Overview</a></li>
                    <li><a href="#">Reports</a></li>
                    <li><a href="#">Analytics</a></li>

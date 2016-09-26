@@ -157,10 +157,18 @@ a:hover{
     background-size: cover;
 }
 
+.login{
+    text-align: left;
+}
 #sep h4 {
 	letter-spacing: 1px;
 	line-height: 30px;
 	margin-top: 30px;
+}
+
+.login h4 {
+	letter-spacing: 1px;
+	line-height: 30px;
 }
 
 /* Pricing Tables */
@@ -296,4 +304,9 @@ ul {
 
 .text-primary {
     color: #747B83;
+}
+
+.img-circle {
+    width: 120px;
+    height: 120px;
 }
