@@ -1,189 +1,125 @@
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('Edit Trainer'), ['action' => 'edit', $trainer->id]) ?> </li>
-        <li><?= $this->Form->postLink(__('Delete Trainer'), ['action' => 'delete', $trainer->id], ['confirm' => __('Are you sure you want to delete # {0}?', $trainer->id)]) ?> </li>
-        <li><?= $this->Html->link(__('List Trainers'), ['action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Trainer'), ['action' => 'add']) ?> </li>
-        <li><?= $this->Html->link(__('List Users'), ['controller' => 'Users', 'action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New User'), ['controller' => 'Users', 'action' => 'add']) ?> </li>
-        <li><?= $this->Html->link(__('List Specialties'), ['controller' => 'Specialties', 'action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Specialty'), ['controller' => 'Specialties', 'action' => 'add']) ?> </li>
-    </ul>
-</nav>
-<div class="trainers view large-9 medium-8 columns content">
-    <h3><?= h($trainer->id) ?></h3>
-    <table class="vertical-table">
-        <tr>
-            <th><?= __('User') ?></th>
-            <td><?= $trainer->has('user') ? $this->Html->link($trainer->user->name, ['controller' => 'Users', 'action' => 'view', $trainer->user->id]) : '' ?></td>
-        </tr>
-        <tr>
-            <th><?= __('Bio') ?></th>
-            <td><?= h($trainer->bio) ?></td>
-        </tr>
-        <tr>
-            <th><?= __('CREF') ?></th>
-            <td><?= h($trainer->CREF) ?></td>
-        </tr>
-        <tr>
-            <th><?= __('Url') ?></th>
-            <td><?= h($trainer->url) ?></td>
-        </tr>
-        <tr>
-            <th><?= __('Id') ?></th>
-            <td><?= $this->Number->format($trainer->id) ?></td>
-        </tr>
-        <tr>
-            <th><?= __('Type Of Section') ?></th>
-            <td><?= $this->Number->format($trainer->type_of_section) ?></td>
-        </tr>
-        <tr>
-            <th><?= __('Rating') ?></th>
-            <td><?= $this->Number->format($trainer->rating) ?></td>
-        </tr>
-        <tr>
-            <th><?= __('Rating Count Votes') ?></th>
-            <td><?= $this->Number->format($trainer->rating_count_votes) ?></td>
-        </tr>
-        <tr>
-            <th><?= __('Average Price') ?></th>
-            <td><?= $this->Number->format($trainer->average_price) ?></td>
-        </tr>
-        <tr>
-            <th><?= __('Years Training') ?></th>
-            <td><?= $this->Number->format($trainer->years_training) ?></td>
-        </tr>
-        <tr>
-            <th><?= __('Number Views') ?></th>
-            <td><?= $this->Number->format($trainer->number_views) ?></td>
-        </tr>
-    </table>
-    <div class="related">
-        <h4><?= __('Related Specialties') ?></h4>
-        <?php if (!empty($trainer->specialties)): ?>
-        <table cellpadding="0" cellspacing="0">
-            <tr>
-                <th><?= __('Id') ?></th>
-                <th><?= __('Name') ?></th>
-                <th><?= __('Description') ?></th>
-                <th><?= __('Filter Category') ?></th>
-                <th class="actions"><?= __('Actions') ?></th>
-            </tr>
-            <?php foreach ($trainer->specialties as $specialties): ?>
-            <tr>
-                <td><?= h($specialties->id) ?></td>
-                <td><?= h($specialties->name) ?></td>
-                <td><?= h($specialties->description) ?></td>
-                <td><?= h($specialties->filter_category) ?></td>
-                <td class="actions">
-                    <?= $this->Html->link(__('View'), ['controller' => 'Specialties', 'action' => 'view', $specialties->id]) ?>
-                    <?= $this->Html->link(__('Edit'), ['controller' => 'Specialties', 'action' => 'edit', $specialties->id]) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['controller' => 'Specialties', 'action' => 'delete', $specialties->id], ['confirm' => __('Are you sure you want to delete # {0}?', $specialties->id)]) ?>
-                </td>
-            </tr>
-            <?php endforeach; ?>
-        </table>
-        <?php endif; ?>
-    </div>
-     <div class="related">
-        <h4><?= __('Social Media') ?></h4>
-        <?php if (!empty($trainer->social_media)): ?>
-        <table cellpadding="0" cellspacing="0">
-            <tr>
-                <th><?= __('Id') ?></th>
-                <th><?= __('Facebook') ?></th>
-                <th><?= __('Twitter') ?></th>
-                <th><?= __('Linkedin') ?></th>
-                <th><?= __('YouTube') ?></th>
-                <th><?= __('Email') ?></th>
-                <th class="actions"><?= __('Actions') ?></th>
-            </tr>
+<!-- Bootstrap core CSS -->
+<?= $this->Html->css('bootstrap.css', ['block' => true]) ?>
+
+<!-- Custom styles for this template -->
+
+<?= $this->Html->css('ionicons.min.css', ['block' => true]) ?>
+<?= $this->Html->css('tl-profile-style.css', ['block' => true]) ?>
+<?= $this->Html->css('footer.css', ['block' => true]) ?>
+
+<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+ <?= $this->Html->script('ie10-viewport-bug-workaround.js', ['block' => true]) ?>
+
+<style>
+.navbar-nav {
+    float: right;
+}
+
+.search-input {
+    float: none !important;
+    margin-right: 0px !important;
+}
+
+.btn-conf {
+    padding: 11px 28px 11px 28px !important;
+}
+
+.trainer-card{
+    border-color: #d9d9d9 !important;
+}
+</style>
+    
+<!-- header -->
+<?= $this->element('header'); ?>
+<!-- end header -->
+<?= $this->element('search-bar'); ?>
+
+<section id="content" class="sec-content">
+    <div class="container">
+        <div class="row">
+            <!-- item -->
+            <div class="col-md-7 mg-rt">
+                <div class="row">
+                    <div class="col-md-12 profile-card">
+                        <h4 class="w400">Sobre o treinador</h4>
+                        <hr>
+                        Lorem ipsum dolor sit amet, illum decore omittam nec et, eu per semper singulis,
+                        inani facete ius ne. Te iriure definiebas reprehendunt per, cum ne quas indoctum,
+                        qui et nobis facilis alienum. Nam alii paulo at, vis iriure legimus et, delectus 
+                        delicatissimi at vim. Debet munere utroque sit et, solum partem phaedrum eam an, 
+                        est brute impetus comprehensam ut.
+                        Te vix oratio dissentias, an aliquip antiopam per, an diam clita affert nam. 
+                        Fierent scriptorem te duo, ea posse recusabo deseruisse vix. Delenit maluisset ius eu, 
+                        ei oratio facilis interpretaris eam. Ex laudem qualisque nec, nihil adipisci referrentur 
+                        id sed, mollis tincidunt concludaturque at sed. An error simul vis.
+                    </div>
+                    <div class="col-md-12 profile-card">
+                        <h4 class="w400">Especialidades</h4>
+                        <hr>
+                        <ul>
+                            <li>Hipertrofia</li>
+                            <li>Dieta Low Carb</li>
+                            <li>Fisioterapia Muscular</li>
+                        </ul>
+    
+                    </div>
+                    <div class="col-md-12 profile-card">
+                        <h4 class="w400">Formação</h4>
+                        <hr>
+                        <ul>
+                            <li><span style="font-weight: 600;">  Lorem ipsum dolor sit amet, illum decore omittam </span><br>
+                        inani facete ius ne. Te iriure definiebas reprehendunt per, cum ne quas indoctum.
+                            </li>
+                            <li><span style="font-weight: 600;">  Nam alii paulo at, vis iriure legimus </span><br>
+                        delicatissimi at vim. Debet munere utroque sit et, solum partem phaedrum eam an.</li>
+                            <li><span style="font-weight: 600;">  Debet munere utroque sit et </span><br>
+                        est brute impetus comprehensam ut.</li>
+                        </ul>
+
+                    </div>
+                    <div class="col-md-12 profile-card">
+                        <h4 class="w400">Cursos</h4>
+                        <hr>
+                        <ul>
+                            <li><span style="font-weight: 600;"> Lorem ipsum dolor sit amet</span> <br>
+                        inani facete ius ne. Te iriure definiebas reprehendunt per, cum ne quas indoctum.
+                            </li>
+                            <li><span style="font-weight: 600;"> Nam alii paulo at, vis iriure </span> <br>
+                        delicatissimi at vim. Debet munere utroque sit et, solum partem phaedrum eam an.</li>
+                            <li><span style="font-weight: 600;">Debet munere utroque </span> <br> 
+                        est brute impetus comprehensam ut.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
             
-            <tr>
-                <td><?= h($trainer->social_media->id) ?></td>
-                <td><?= h($trainer->social_media->facebook) ?></td>
-                <td><?= h($trainer->social_media->twitter) ?></td>
-                <td><?= h($trainer->social_media->linkedin) ?></td>
-                <td><?= h($trainer->social_media->youtube) ?></td>
-                <td><?= h($trainer->social_media->email) ?></td>
-                <td class="actions">
-                    <?= $this->Html->link(__('View'), ['controller' => 'SocialMedias', 'action' => 'view', $trainer->social_media->id]) ?>
-                </td>
-            </tr>
-            
-            
-        </table>
-        
-        <?php endif; ?>
-     </div>
-    
-    <div class="related">
-        <h4><?= __('Telephones') ?></h4>
-        <?php if (!empty($trainer->telephones)): ?>
-        <table cellpadding="0" cellspacing="0">
-            <tr>
-                <th><?= __('Id') ?></th>
-                <th><?= __('Telephone') ?></th>
-            </tr>
-            <?php foreach ($trainer->telephones as $telephones): ?>
-            <tr>
-                <td><?= h($telephones->id) ?></td>
-                <td><?= h($telephones->telephone) ?></td>
-            </tr>
-            <?php endforeach; ?>
-        </table>
-        <?php endif; ?>
+            <div class="col-md-4 profile-card profile-inf">
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <div class="foto centered">
+                            <?= $this->Html->image('trainer.png', ['class'=>'foto-profile img-circle']); ?>
+                        </div>
+                        <p class="trainer-views">
+                            <span style="font-weight: 600">                 
+                                +1000
+                             </span> 
+                            </br>
+                            visualizações
+                        </p>
+                        <p class="trainer-specialty">
+                            Personal Trainer
+                        </p>
+                    </div>
+                    <div class="col-md-12 text-center">
+                        <h4 class="trainer-name">Edson Nascimento</h4>
+                        <h5>Curitiba,PR</h5>
+                        <a href="#" class="btn btn-conf-2 btn-input btn-trainer" role="Button">Entrar em contato</a> 
+                    </div>
+                    
+                </div>
+            </div>
+            <!-- end: -->
+        </div>
     </div>
-    
-     <div class="related">
-        <h4><?= __('Certificates') ?></h4>
-        <?php if (!empty($trainer->certificates)): ?>
-        <table cellpadding="0" cellspacing="0">
-            <tr>
-                <th><?= __('Id') ?></th>
-                <th><?= __('Title') ?></th>
-                <th><?= __('Descritpion') ?></th>
-                <th><?= __('Image') ?></th>
-                <th class="actions"><?= __('Actions') ?></th>
-            </tr>
-            <?php foreach ($trainer->certificates as $certificates): ?>
-            <tr>
-                <td><?= h($certificates->id) ?></td>
-                <td><?= h($certificates->title) ?></td>
-                <td><?= h($certificates->description) ?></td>
-                <td><?= h($certificates->image) ?></td>
-                <td class="actions">
-                    <?= $this->Html->link(__('View'), ['controller' => 'Certificates', 'action' => 'view', $certificates->id]) ?>
-                </td>
-            </tr>
-            <?php endforeach; ?>
-        </table>
-        <?php endif; ?>
-    </div>
-    
-    <div class="related">
-        <h4><?= __('Articles') ?></h4>
-        <?php if (!empty($trainer->articles)): ?>
-        <table cellpadding="0" cellspacing="0">
-            <tr>
-                <th><?= __('Id') ?></th>
-                <th><?= __('Title') ?></th>
-                <th><?= __('Description') ?></th>
-                <th class="actions"><?= __('Actions') ?></th>
-            </tr>
-            <?php foreach ($trainer->articles as $articles): ?>
-            <tr>
-                <td><?= h($articles->id) ?></td>
-                <td><?= h($articles->title) ?></td>
-                <td><?= h($articles->description) ?></td>
-                <td class="actions">
-                    <?= $this->Html->link(__('View'), ['controller' => 'Articles', 'action' => 'view', $articles->id]) ?>
-                </td>
-            </tr>
-            <?php endforeach; ?>
-        </table>
-        <?php endif; ?>
-    </div>
-    
-</div>
+</section>
+

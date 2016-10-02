@@ -47,29 +47,10 @@
     </div><!--/.banner-container-->
 </section><!--/#home-->
 
-<section id="search-bar">
-    <div class="container">
-        <div class="row">
-          <div class="col-md-8 col-md-offset-2 col-sm-12 col-sm-offset-0 centered">
-              <form method="get" accept-charset="utf-8" action="/trainerlink/trainers/search" class="form-inline">            
-                    <div class="col-md-5" >
-                        <select name="specialties" class="search-input form-control" placeholder="O que você procura?" id="specialties">
-                            <option value="0">O que você procura?</option>
-                        </select>
-                    </div>            
-                    <div class="col-md-5">
-                        <input type="text" name="city" id="Autocomplete" class="search-input ui-autocomplete-input form-control" placeholder="Digite uma cidade" autocomplete="off" value="<?=$city?>">
-                    </div>            
-                    <input type="hidden" name="genre" id="city" value="3">            
-                    <input type="hidden" name="section_type" id="city" value="both">       
-                    <div class="col-md-2">
-                    <button class="btn btn-conf btn-input" type="submit">Buscar</button>         
-                    </div>
-                </form>
-          </div><!--/.col-->
-        </div><!--/.row-->
-    </div>
-</section><!--/#search-bar-->
+<?= $this->element('search-bar', [
+                    "city" => $city
+    ]); ?>
+
 
 <section id="content" class="sec-content">
     <div class="container">
@@ -80,7 +61,7 @@
         <div class="row">
             <!-- item -->
             <div class="col-md-3 sidebar sidebar-card">
-                <h5 class="ms w600">Filtre seus Resultados</h5>
+                <h5 class="ms w600"><?= $this->Html->image('tl-filter.png') ?> <span style="margin-left: 5px">Filtre seus Resultados</span></h5>
                 <hr>
                 <h5 class="ms w600 ul-title">Preferência por treinador(a):</h5>
                 <ul class="nav nav-sidebar ms" >
