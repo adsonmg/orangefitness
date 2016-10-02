@@ -135,71 +135,63 @@
         <!-- /.container -->
     </section>
 
-<div class="container ptb">
+<div class="container pb">
   <div class="row">
-    <h2 class="centered">Explore</h2>
+    <h2 class="centered title-600">Explore</h2>
     <h4 class="mb centered">Encontre profissionais qualificados</h4>
     <div class="col-md-6">
-        <div class="jumbotron">
-
-            <div class="row">
-                <div class="col-xs-12 col-sm-4 col-lg-4 text-right">
-                    <!-- Profile foto -->
-                    <div class="foto centered">
-                        <img src="http://cdn.shopify.com/s/files/1/0535/6917/products/personaltrainershirt.jpeg?v=1414445691" class="foto-profile img-circle" alt="Ukieweb">
-
-                    </div>
-                    <!-- end your foto -->
-                </div>
-                <div class="col-xs-12 col-sm-8 col-lg-8">
-                    <!-- Your Name -->
-                    <h3 class="title">Edson Nascimento</h3>
-                    <!-- Your Profession -->
-                    <h5 class="sub-title">Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-                        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi
-                        ut aliquip ex ea commodo consequat.
-                    </h5>
-                    <p>
-                        <a href="#" class="btn btn-conf-2 btn-input" role="Button">Ver perfil</a>                                  
-
-                    </p>
-                </div>
-            </div>
-        </div>
+        <?= $this->element('trainer-card',[
+            "trainer_name" => "Edson Nascimento",
+            "trainer_location" => "Curitiba,PR",
+            "trainer_image" => "trainer.PNG",
+            "trainer_views" => "+1000",
+            "trainer_specialty" => "Personal Trainer",
+            "trainer_bio" => "Nemo enim ipsam voluptatem quia voluptas"
+            . " sit aspernatur aut odit aut fugit, sed quia "
+            . "consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt."
+        ]); ?>
     </div><!--/col-md-4-->
 
      <div class="col-md-6">
-         <div class="jumbotron">
-
-            <div class="row">
-                <div class="col-xs-12 col-sm-4 col-lg-4 text-right">
-                    <!-- Profile foto -->
-                    <div class="foto centered">
-                        <img src="http://cdn.shopify.com/s/files/1/0535/6917/products/personaltrainershirt.jpeg?v=1414445691" class="foto-profile img-circle" alt="Ukieweb">
-
-                    </div>
-                    <!-- end your foto -->
-                </div>
-                <div class="col-xs-12 col-sm-8 col-lg-8">
-                    <!-- Your Name -->
-                    <h3 class="title">Edson Nascimento</h3>
-                    <!-- Your Profession -->
-                    <h5 class="sub-title">Duis aute irure dolor in reprehenderit in voluptate velit 
-                        esse cillum dolore eu fugiat nulla pariatur. 
-                        Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia 
-                        deserunt mollit anim id est laborum.
-                    </h5>
-                    <p>
-                        <a href="#" class="btn btn-conf-2 btn-input" role="Button">Ver perfil</a>                                  
-
-
-                    </p>
-                </div>
-            </div>
-        </div>
+         <?= $this->element('trainer-card',[
+            "trainer_name" => "Christina Souza",
+            "trainer_location" => "Varginha,MG",
+            "trainer_image" => "trainer2.PNG",
+            "trainer_views" => "+2000",
+            "trainer_specialty" => "Yoga",
+            "trainer_bio" => "Nemo enim ipsam voluptatem quia voluptas"
+            . " sit aspernatur aut odit aut fugit, sed quia "
+            . "consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.",
+        ]); ?>
+    </div><!--/col-md-4-->
+    
+    <div class="col-md-6">
+        <?= $this->element('trainer-card',[
+            "trainer_name" => "Edson Nascimento",
+            "trainer_location" => "Curitiba,PR",
+            "trainer_image" => "trainer.PNG",
+            "trainer_views" => "+1000",
+            "trainer_specialty" => "Personal Trainer",
+            "trainer_bio" => "Nemo enim ipsam voluptatem quia voluptas"
+            . " sit aspernatur aut odit aut fugit, sed quia "
+            . "consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt."
+        ]); ?>
     </div><!--/col-md-4-->
 
+     <div class="col-md-6">
+         <?= $this->element('trainer-card',[
+            "trainer_name" => "Christina Souza",
+            "trainer_location" => "Varginha,MG",
+            "trainer_image" => "trainer2.PNG",
+            "trainer_views" => "+2000",
+            "trainer_specialty" => "Yoga",
+            "trainer_bio" => "Nemo enim ipsam voluptatem quia voluptas"
+            . " sit aspernatur aut odit aut fugit, sed quia "
+            . "consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.",
+        ]); ?>
+    </div><!--/col-md-4-->
+    
+    
   </div><!--/row-->
 </div><!--/container-->
 

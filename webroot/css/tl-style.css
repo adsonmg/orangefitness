@@ -3,17 +3,17 @@
     Author     : adson
 */
 
-@import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700);
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:300,400,700);
 
 * {
     margin: 0;
     padding: 0;
-    font-family: 'Source Sans Pro', sans-serif;
+    font-family: 'Open Sans', sans-serif;
 }
 
 body {
     font-size: 14px;
-    font-family: 'Source Sans Pro', sans-serif;
+    font-family: 'Open Sans', sans-serif;
     -webkit-font-smoothing: antialiased;
     background: #E4E4E4;
 }
@@ -88,14 +88,14 @@ a:focus {
 }
 
 h1, h2, h3, h4, h5, h6 {
-    font-family: 'Source Sans Pro', sans-serif;
+    font-family: 'Open Sans', sans-serif;
 	font-weight: 300;
 }
 
 p { 
 	padding: 0; 
 	margin-bottom: 12px; 
-     font-family: 'Source Sans Pro', sans-serif;
+     font-family: 'Open Sans', sans-serif;
 	font-weight: 300;
 	font-size: 16px; 
 	line-height: 26px;
@@ -233,6 +233,9 @@ background: none;
 
 /* End Header 
 ----------------------------------------------*/
+.title-600{
+    font-weight: 400;
+}
 /* Footer
 ----------------------------------------------*/
 #f {
@@ -297,9 +300,73 @@ background: none;
 }
 
 
+
 #f h5 {
     margin-top: 30px;
     letter-spacing: 1px;
 }
 /* End Footer
 ----------------------------------------------*/
+
+/* Start Trainer
+---------------------*/
+.trainer-card{
+    border: 1px solid #ededed;
+    border-radius: 2px;
+    background-color: #fff;
+    padding: 30px;
+    margin-bottom: 30px;
+}
+
+.trainer-card h4{ 
+    margin: 0px;
+    
+}
+
+.trainer-card h5{ 
+    line-height: 1.5;    
+    font-weight: 400;
+}
+
+.trainer-name{
+    font-weight: 600;
+}
+
+.trainer-views{
+    font-size: 14px;
+    margin-bottom: 0px;
+    margin-top: 12px;
+    font-weight: 400;
+    line-height: 1.5;
+}
+
+.trainer-specialty{
+    font-size: 14px;
+    color: #FF6357;
+    margin: 0px;
+    font-weight: 600;
+
+}
+
+.btn-trainer{
+    background-color: #00BECE;
+}
+/* End Trainer
+---------------------*/
+
+
+@media only screen and (max-width : 768px) {
+    
+    /* Start Trainer
+    ---------------------*/
+    .trainer-card{
+        text-align: center;
+        margin: 5px;
+    }
+    
+    .trainer-card h4{ 
+        margin-top: 20px;
+    }
+    /* End Trainer
+---------------------*/
+}

@@ -23,6 +23,10 @@
 .btn-conf {
     padding: 11px 28px 11px 28px !important;
 }
+
+.trainer-card{
+    border-color: #d9d9d9 !important;
+}
 </style>
     
 <!-- header -->
@@ -69,25 +73,56 @@
 
 <section id="content" class="sec-content">
     <div class="container">
-        <div class="heading">
+        <div class="row heading">
             <!-- Heading -->
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+            <p>1 - 16 de 234 treinadores encontrados</p>
         </div>
         <div class="row">
             <!-- item -->
-            <div class="col-md-3 sidebar">
-                <ul class="nav nav-sidebar" >
-                   <li><a href="#">Overview</a></li>
-                   <li><a href="#">Reports</a></li>
-                   <li><a href="#">Analytics</a></li>
-                   <li><a href="#">Export</a></li>
+            <div class="col-md-3 sidebar sidebar-card">
+                <h5 class="ms w600">Filtre seus Resultados</h5>
+                <hr>
+                <h5 class="ms w600 ul-title">Preferência por treinador(a):</h5>
+                <ul class="nav nav-sidebar ms" >
+                   <li> 
+                        <div class="checkbox">
+                            <label>
+                                <input class="checkbox" type="checkbox" name="woman" value="woman" checked="true"> Mulher
+                             </label>
+                        </div>
+                   </li>
+                   <li> 
+                        <div class="checkbox">
+                            <label>
+                                <input class="checkbox" type="checkbox" name="man" value="man" checked="true"> Homem
+                             </label>
+                        </div>
+                   </li>
                 </ul>
-                <ul class="nav nav-sidebar">
-                    <li><a href="">Nav item</a></li>
-                    <li><a href="">Nav item again</a></li>
-                    <li><a href="">One more nav</a></li>
-                    <li><a href="">Another nav item</a></li>
-                    <li><a href="">More navigation</a></li>
+                <hr>
+                <h5 class="ms w600 ul-title">Realizar treinamentos em:</h5>
+                <ul class="nav nav-sidebar ms">
+                    <li> 
+                        <div class="checkbox">
+                            <label>
+                                <input class="checkbox" type="checkbox" name="gym" value="gym" checked="true"> Academia
+                             </label>
+                        </div>
+                   </li>
+                   <li> 
+                        <div class="checkbox">
+                            <label>
+                                <input class="checkbox" type="checkbox" name="house" value="house" checked="true"> Casa
+                             </label>
+                        </div>
+                   </li>
+                   <li> 
+                        <div class="checkbox">
+                            <label>
+                                <input class="checkbox" type="checkbox" name="park" value="park" checked="true"> Parques
+                             </label>
+                        </div>
+                   </li>
                 </ul>
             </div>
             <!-- end: -->
@@ -95,37 +130,17 @@
             <!-- result-search -->
             <div class="col-md-7 tileBox result-ser">
                 <?php foreach ($trainers as $trainer): ?>
-                    <div class="jumbotron">
-
-                        <div class="row">
-                            <div class="col-xs-12 col-sm-4 col-lg-4 text-right">
-                                <!-- Profile foto -->
-                                <div class="foto">
-                                    <img src="https://ukieweb.com/envato/ukiecard/style1/assets/img/photo.png" class="foto-profile img-circle" alt="Ukieweb">
-
-                                </div>
-                                <!-- end your foto -->
-                            </div>
-                            <div class="col-xs-12 col-sm-8 col-lg-8">
-                                <!-- Your Name -->
-                                <h3 class="title"><?= $trainer->user->name ?></h3>
-                                <!-- Your Profession -->
-                                <h5 class="sub-title">Web Designer &amp; Mobile Application Developer</h5>
-                                <p>
-                                    <?= $this->Html->link('Ver perfil', ['controller' => 'Users', 
-                                                                                 'action' => 'view', 
-                                                                                 $trainer->user->id
-                                                                            ],
-                                                                            ['class'=>'btn btn-conf-2 btn-input', 
-                                                                            'role'=>'Button'
-                                                                            ]); ?>
-                                  
-                                    
-                                    
-                                </p>
-                            </div>
-                        </div>
-                    </div>
+                    <?= $this->element('trainer-card',[
+                            "trainer_name" => $trainer->user->name,
+                            "trainer_location" => "Varginha,MG",
+                            "trainer_image" => "trainer.PNG",
+                            "trainer_views" => "+2000",
+                            "trainer_specialty" => "Yoga",
+                            "trainer_bio" => "Nemo enim ipsam voluptatem quia voluptas"
+                            . " sit aspernatur aut odit aut fugit, sed quia "
+                            . "consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.",
+                        ]); ?>
+                    
                 <?php endforeach; ?>
 
                 <div class="paginator text-center">
@@ -142,7 +157,7 @@
             <!-- item -->
             <div class="col-md-2 text-center tileBox">
                 <div class="ads jumbotron">
-                    lala
+                    Ad
                 </div>
             </div>
             <!-- end: -->
