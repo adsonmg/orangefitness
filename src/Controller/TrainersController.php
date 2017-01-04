@@ -13,6 +13,7 @@ class TrainersController extends AppController
 
     /**
      * Index method
+     * This page is not visible for users with role other than admin
      *
      * @return \Cake\Network\Response|null
      */
@@ -27,6 +28,12 @@ class TrainersController extends AppController
         $this->set('_serialize', ['trainers']);
     }
     
+    /**
+     * This function is used to retrieve a list of trainers that match with
+     * a query made by our users.
+     * 
+     * TODO: work in the algorithm of rank and filters
+     */
     public function search()
     {
         if($this->request->is('get')){
@@ -50,6 +57,8 @@ class TrainersController extends AppController
 
     /**
      * View method
+     * 
+     * This method is the profile of a trainer
      *
      * @param string|null $id Trainer id.
      * @return \Cake\Network\Response|null
@@ -57,6 +66,7 @@ class TrainersController extends AppController
      */
     public function view($id = null)
     {
+
         $trainer = $this->Trainers->get($id, [
             'contain' => ['Users', 'Specialties', 'SocialMedias', 'Telephones', 'Certificates', 'Articles']
         ]);
@@ -67,11 +77,15 @@ class TrainersController extends AppController
 
     /**
      * Add method
+     * 
+     * First method called when we adding a trainer to our platform 
      *
      * @return \Cake\Network\Response|void Redirects on successful add, renders view otherwise.
      */
     public function add()
     {
+        $this->viewBuilder()->layout('cake_layout');
+
        $trainer = $this->Trainers->newEntity();
         if ($this->request->is('post')) {
             $trainer = $this->Trainers->patchEntity($trainer, $this->request->data);
@@ -96,6 +110,8 @@ class TrainersController extends AppController
 
     /**
      * Edit method
+     * 
+     * Method called when to edit profile of a trainer
      *
      * @param string|null $id Trainer id.
      * @return \Cake\Network\Response|void Redirects on successful edit, renders view otherwise.
@@ -103,11 +119,13 @@ class TrainersController extends AppController
      */
     public function edit($id = null)
     {
+        $this->viewBuilder()->layout('cake_layout');
+
         
         $trainer = $this->Trainers->get($id, [
-            'contain' => ['Users', 'Specialties', 'SocialMedias', 'Telephones', 'Certificates', 'Articles']
+            'contain' => ['Users', 'Specialties', 'SocialMedias', 'Telephones', 'Certificates', 'Articles', 'Degrees', 'Locations']
         ]);
-        if ($this->request->is(['patch', 'post', 'put'])) {
+                if ($this->request->is(['patch', 'post', 'put'])) {
             $trainer = $this->Trainers->patchEntity($trainer, $this->request->data);
             if ($this->Trainers->save($trainer)) {
                 $this->Flash->success(__('The trainer has been saved.'));
@@ -125,6 +143,10 @@ class TrainersController extends AppController
 
     /**
      * Delete method
+     * 
+     * TODO: A trainer should not be deleted from the database at once. Instead t should
+     * be marked as bloqued when requested and then, after a couple of days, be
+     * deleted from the db by our admins
      *
      * @param string|null $id Trainer id.
      * @return \Cake\Network\Response|null Redirects to index.

@@ -51,6 +51,9 @@ class UsersController extends AppController
      */
     public function register($role = null)
     {
+        // Set the layout.
+        $this->viewBuilder()->layout('cake_layout');
+        
         $user = $this->Users->newEntity();
         if ($this->request->is('post')) {
             $user = $this->Users->patchEntity($user, $this->request->data);
@@ -161,6 +164,49 @@ class UsersController extends AppController
             $this->Flash->error('Your username or password is incorrect.');
         }
     }
+    
+    /**
+     * Login method
+     * @return type
+     */
+    public function login1()
+    {
+        // Set the layout.
+        $this->viewBuilder()->layout('cake_layout');
+     
+        if ($this->request->is('post')) {
+            $user = $this->Auth->identify();
+            if ($user) {
+                $this->Auth->setUser($user);
+                //Get user's information
+                $role = $this->Auth->user('role');
+                $id = $this->Auth->user('id');
+                
+                 //Redirects user according to its role
+                if($role == 1){
+                    //Verifies if trainer exists
+                    $this->loadModel('Trainers');
+                    $profile = $this->Trainers->find('all')
+                            ->where(['users_id =' => $id]);
+                    
+                    $profile = $profile->toArray();
+                    if($profile != null){
+                        //Trainer  exists
+                        //Redirects to trainer's homepage
+                        return $this->redirect(['controller' => 'Trainers', 'action' => 'edit', $profile[0]['id']]);
+                    }else{
+                        //Trainer doesn't  exist
+                        //Creates one
+                        return $this->redirect(['controller' => 'Trainers', 'action' => 'add']);
+                    }
+                    
+                }
+                //return $this->redirect($this->Auth->redirectUrl());
+            }
+            $this->Flash->error('Your username or password is incorrect.');
+        }
+    }
+    
     /**
      * Logout method
      * @return type
@@ -177,7 +223,7 @@ class UsersController extends AppController
     public function initialize()
     {
         parent::initialize();
-        $this->Auth->allow(['logout', 'register']);
+        $this->Auth->allow(['logout', 'register', 'login1']);
         //$this->viewBuilder()->layout('cake_layout');
     }
 

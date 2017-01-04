@@ -73,6 +73,18 @@ class TrainersTable extends Table
             'foreignKey' => 'trainers_id',
             'dependent' => true
         ]);
+        
+        //A trainer can have many articles
+        $this->hasMany('Degrees', [
+            'foreignKey' => 'trainers_id',
+            'dependent' => true
+        ]);
+        
+        //A trainer can have many articles
+        $this->hasMany('Locations', [
+            'foreignKey' => 'trainers_id',
+            'dependent' => true
+        ]);
     }
 
     /**

@@ -24,141 +24,108 @@
             echo $this->Form->input('bio', ['type' => 'textarea', 'escape' => false]);
             echo $this->Form->input('CREF');
             echo $this->Form->input('years_training');
-            echo $this->Form->input('url');
+            echo $this->Form->input('url');           
             //echo $this->Form->input('specialties._ids', ['options' => $specialties]);
-            echo $this->Form->input('specialties._ids', [
-                                'multiple' => 'checkbox',
-                                'options' => $specialties
-                            ]);
+            echo $this->Form->input('specialties._ids', [   
+                        'templates' => [ 
+                            'checkboxWrapper' => '<div class="large-3 medium-4 columns">{{label}}</div>',
+                        ],
+                        'options'  => $specialties,
+                        'type'     => 'select',
+                        'multiple' => 'checkbox',
+                        'label'    => false,
+                        ]);
+                      
             
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>
     <?= $this->Form->end() ?>
     
-    <div class="related">
-        <h4><?= __('Social Media') ?></h4>
-        <?php if (!empty($trainer->social_media)): ?>
-        <table cellpadding="0" cellspacing="0">
+</div>
+ 
+<div class="trainers form large-9 medium-8 columns content">
+    <h3><?= __('Degrees') ?></h3>
+    <table cellpadding="0" cellspacing="0">
+        <thead>
             <tr>
-                <th><?= __('Id') ?></th>
-                <th><?= __('Facebook') ?></th>
-                <th><?= __('Twitter') ?></th>
-                <th><?= __('Linkedin') ?></th>
-                <th><?= __('YouTube') ?></th>
-                <th><?= __('Email') ?></th>
+                <th><?= $this->Paginator->sort('id') ?></th>
+                <th><?= $this->Paginator->sort('instituition') ?></th>
+                <th><?= $this->Paginator->sort('course') ?></th>
+                <th><?= $this->Paginator->sort('duration') ?></th>
+                <th><?= $this->Paginator->sort('trainers_id') ?></th>
                 <th class="actions"><?= __('Actions') ?></th>
             </tr>
-            
+        </thead>
+        <tbody>
+            <?php foreach ($trainer->degrees as $degree): ?>
             <tr>
-                <td><?= h($trainer->social_media->id) ?></td>
-                <td><?= h($trainer->social_media->facebook) ?></td>
-                <td><?= h($trainer->social_media->twitter) ?></td>
-                <td><?= h($trainer->social_media->linkedin) ?></td>
-                <td><?= h($trainer->social_media->youtube) ?></td>
-                <td><?= h($trainer->social_media->email) ?></td>
+                <td><?= $this->Number->format($degree->id) ?></td>
+                <td><?= h($degree->instituition) ?></td>
+                <td><?= h($degree->course) ?></td>
+                <td><?= h($degree->duration) ?></td>
+                <td><?= $degree->has('trainer') ? $this->Html->link($degree->trainer->id, ['controller' => 'Trainers', 'action' => 'view', $degree->trainer->id]) : '' ?></td>
                 <td class="actions">
-                    <?= $this->Html->link(__('Edit'), ['controller'=> 'SocialMedias', 'action' => 'edit', $trainer->social_media->id]) ?>
-                </td>
-            </tr>
-            
-            
-        </table>
-        
-        <?php endif; ?>
-     </div>
-    
-    <div class="related">
-        <h4><?= __('Telephones') ?></h4>
-        <?php if (!empty($trainer->telephones)): ?>
-        <table cellpadding="0" cellspacing="0">
-            <tr>
-                <th><?= __('Id') ?></th>
-                <th><?= __('Telephone') ?></th>
-                <th class="actions"><?= __('Actions') ?></th>
-            </tr>
-            <?php foreach ($trainer->telephones as $telephones): ?>
-            <tr>
-                <td><?= h($telephones->id) ?></td>
-                <td><?= h($telephones->telephone) ?></td>
-                <td class="actions">
-                    <?= $this->Html->link(__('Edit'), ['controller' => 'Telephones', 'action' => 'edit', $telephones->id]) ?>
-                    <?= $this->Form->postLink(
-                            __('Delete'),
-                            ['controller' => 'Telephones', 'action' => 'delete', $telephones->id],
-                            ['confirm' => __('Are you sure you want to delete # {0}?', $telephones->id)]
-                        )
-                    ?>
+                    <?= $this->Html->link(__('View'), ['action' => 'view', $degree->id]) ?>
+                    <?= $this->Html->link(__('Edit'), ['action' => 'edit', $degree->id]) ?>
+                    <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $degree->id], ['confirm' => __('Are you sure you want to delete # {0}?', $degree->id)]) ?>
                 </td>
             </tr>
             <?php endforeach; ?>
-        </table>
-        <?php endif; ?>
-        <?= $this->Html->link(__('Add Telephones'), ['controller' => 'Telephones', 'action' => 'add']) ?>
-    </div>
-    
-     <div class="related">
-        <h4><?= __('Certificates') ?></h4>
-        <?php if (!empty($trainer->certificates)): ?>
-        <table cellpadding="0" cellspacing="0">
+        </tbody>
+    </table>
+    <?= $this->Form->create(null, [
+        'url' => ['controller' => 'Degrees', 'action' => 'add']
+    ]) ?>
+    <fieldset>
+        <legend><?= __('Add Degree') ?></legend>
+        <?php
+            echo $this->Form->input('instituition');
+            echo $this->Form->input('course');
+            echo $this->Form->input('duration');
+            echo $this->Form->input('description');
+            echo $this->Form->hidden('trainers_id', ['value' => $trainer->id]);
+        ?>
+    </fieldset>
+    <?= $this->Form->button(__('Submit')) ?>
+    <?= $this->Form->end() ?>
+
+    <br />
+    <h3><?= __('Locations') ?></h3>
+    <table cellpadding="0" cellspacing="0">
+        <thead>
             <tr>
-                <th><?= __('Id') ?></th>
-                <th><?= __('Title') ?></th>
-                <th><?= __('Descritpion') ?></th>
-                <th><?= __('Image') ?></th>
+                <th><?= $this->Paginator->sort('id') ?></th>
+                <th><?= $this->Paginator->sort('location') ?></th>
+                <th><?= $this->Paginator->sort('trainers_id') ?></th>
                 <th class="actions"><?= __('Actions') ?></th>
             </tr>
-            <?php foreach ($trainer->certificates as $certificates): ?>
+        </thead>
+        <tbody>
+            <?php foreach ($trainer->locations as $location): ?>
             <tr>
-                <td><?= h($certificates->id) ?></td>
-                <td><?= h($certificates->title) ?></td>
-                <td><?= h($certificates->description) ?></td>
-                <td><?= h($certificates->image) ?></td>
+                <td><?= $this->Number->format($location->id) ?></td>
+                <td><?= h($location->location) ?></td>
+                <td><?= $location->has('trainer') ? $this->Html->link($location->trainer->id, ['controller' => 'Trainers', 'action' => 'view', $location->trainer->id]) : '' ?></td>
                 <td class="actions">
-                    <?= $this->Html->link(__('Edit'), ['controller' => 'Certificates', 'action' => 'edit', $certificates->id]) ?>
-                    <?= $this->Form->postLink(
-                            __('Delete'),
-                            ['controller' => 'Certificates', 'action' => 'delete', $certificates->id],
-                            ['confirm' => __('Are you sure you want to delete # {0}?', $certificates->id)]
-                        )
-                    ?>
+                    <?= $this->Html->link(__('View'), ['action' => 'view', $location->id]) ?>
+                    <?= $this->Html->link(__('Edit'), ['action' => 'edit', $location->id]) ?>
+                    <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $location->id], ['confirm' => __('Are you sure you want to delete # {0}?', $location->id)]) ?>
                 </td>
             </tr>
             <?php endforeach; ?>
-        </table>
-        <?php endif; ?>
-        <?= $this->Html->link(__('Add Certificates'), ['controller' => 'Certificates', 'action' => 'add']) ?>
-    </div>
-    
-    <div class="related">
-        <h4><?= __('Articles') ?></h4>
-        <?php if (!empty($trainer->articles)): ?>
-        <table cellpadding="0" cellspacing="0">
-            <tr>
-                <th><?= __('Id') ?></th>
-                <th><?= __('Title') ?></th>
-                <th><?= __('Description') ?></th>
-                <th class="actions"><?= __('Actions') ?></th>
-            </tr>
-            <?php foreach ($trainer->articles as $articles): ?>
-            <tr>
-                <td><?= h($articles->id) ?></td>
-                <td><?= h($articles->title) ?></td>
-                <td><?= h($articles->description) ?></td>
-                <td class="actions">
-                    <?= $this->Html->link(__('Edit'), ['controller' => 'Articles', 'action' => 'view', $articles->id]) ?>
-                    <?= $this->Form->postLink(
-                            __('Delete'),
-                            ['controller' => 'Articles', 'action' => 'delete', $articles->id],
-                            ['confirm' => __('Are you sure you want to delete # {0}?', $articles->id)]
-                        )
-                    ?>
-                </td>
-            </tr>
-            <?php endforeach; ?>
-        </table>
-        <?php endif; ?>
-        <?= $this->Html->link(__('Add Articles'), ['controller' => 'Articles', 'action' => 'add']) ?>
-    </div>
-    
+        </tbody>
+    </table>
+    <?= $this->Form->create(null,[
+        'url' => ['controller' => 'Locations', 'action' => 'add']
+    ]) ?>
+    <fieldset>
+        <legend><?= __('Add Location') ?></legend>
+        <?php
+            echo $this->Form->input('location');
+            echo $this->Form->hidden('trainers_id', ['value' => $trainer->id]);
+        ?>
+    </fieldset>
+    <?= $this->Form->button(__('Submit')) ?>
+    <?= $this->Form->end() ?>
 </div>
