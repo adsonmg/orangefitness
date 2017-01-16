@@ -2,6 +2,8 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\Event\Event;
+use Cake\ORM\TableRegistry;
 
 /**
  * Locations Controller
@@ -18,6 +20,9 @@ class LocationsController extends AppController
      */
     public function index()
     {
+        //Use autorender to avoid missing template error
+        $this->viewBuilder()->layout('ajax');
+
         $this->paginate = [
             'contain' => ['Trainers']
         ];
@@ -51,20 +56,21 @@ class LocationsController extends AppController
      */
     public function add()
     {
+        //Use autorender to avoid missing template error
+        $this->viewBuilder()->layout('ajax');
+        
         $location = $this->Locations->newEntity();
         if ($this->request->is('post')) {
             $location = $this->Locations->patchEntity($location, $this->request->data);
+            
             if ($this->Locations->save($location)) {
-                $this->Flash->success(__('The location has been saved.'));
+                $trainers = $this->Locations->Trainers->find('list');
+                $this->set(compact('location', 'trainers'));
+                $this->set('_serialize', ['location']);
 
-                return $this->redirect(['action' => 'index']);
-            } else {
-                $this->Flash->error(__('The location could not be saved. Please, try again.'));
-            }
+            } 
         }
-        $trainers = $this->Locations->Trainers->find('list', ['limit' => 200]);
-        $this->set(compact('location', 'trainers'));
-        $this->set('_serialize', ['location']);
+        
     }
 
     /**
@@ -74,24 +80,25 @@ class LocationsController extends AppController
      * @return \Cake\Network\Response|void Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Network\Exception\NotFoundException When record not found.
      */
-    public function edit($id = null)
+    public function edit()
     {
-        $location = $this->Locations->get($id, [
-            'contain' => []
-        ]);
+        //Update data cake source: http://stackoverflow.com/questions/30218488/update-only-one-field-on-cakephp-3
         if ($this->request->is(['patch', 'post', 'put'])) {
-            $location = $this->Locations->patchEntity($location, $this->request->data);
-            if ($this->Locations->save($location)) {
-                $this->Flash->success(__('The location has been saved.'));
-
-                return $this->redirect(['action' => 'index']);
+            
+            $id = $this->request->data['id'];
+            $newLocation = $this->request->data['location'];
+           
+            $locations = TableRegistry::get('Locations');
+            $location = $locations->get($id); // Return article with id = $id (primary_key of row which need to get updated)
+            $location->location = $newLocation;
+            if($locations->save($location)){
+              // saved
             } else {
-                $this->Flash->error(__('The location could not be saved. Please, try again.'));
+              // something went wrong
             }
+            $this->set(compact('location', 'trainers'));
+            $this->set('_serialize', ['location']);
         }
-        $trainers = $this->Locations->Trainers->find('list', ['limit' => 200]);
-        $this->set(compact('location', 'trainers'));
-        $this->set('_serialize', ['location']);
     }
 
     /**
@@ -125,5 +132,20 @@ class LocationsController extends AppController
         parent::initialize();
         $this->Auth->allow(['index', 'view', 'add', 'edit']);
         //$this->viewBuilder()->layout('cake_layout');
+        
+        $this->loadComponent('RequestHandler');
+
+    }
+    
+    /**
+     * Source: https://book.cakephp.org/3.0/en/controllers/components/request-handling.html
+     * Source: http://stackoverflow.com/questions/32078051/cakephp-3-json-render-view-not-working
+     * @param Event $event
+     */
+    public function beforeRender(Event $event)
+    {
+        $this->RequestHandler->renderAs($this, 'json');
+        $this->response->type('application/json');
+        $this->set('_serialize', true);
     }
 }

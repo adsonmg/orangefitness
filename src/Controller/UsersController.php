@@ -58,21 +58,27 @@ class UsersController extends AppController
         if ($this->request->is('post')) {
             $user = $this->Users->patchEntity($user, $this->request->data);
             
-            //Set role of the user
-            if($role == 'trainer'){
-                $user->role = 1;
-            }
+            //Set some params
+            $user->role = 1;
+            $user->last_login = date("Y-m-d H:i:s");
+            $user->blocked = false;
+
             
             if ($this->Users->save($user)) {
                 $this->Flash->success(__('The user has been saved.'));
-
-                return $this->redirect(['action' => 'index']);
+                //if everything have occurred fine we 
+                //auth user
+                $this->Auth->setUser($user);
+                //Redirects ti create a trainer
+                return $this->redirect(['controller' => 'Trainers', 'action' => 'add']);
             } else {
                 $this->Flash->error(__('The user could not be saved. Please, try again.'));
+                return $this->redirect(['controller' => 'Users','action' => 'login']);
+
             }
         }
-        $cities = $this->Users->Cities->find('list', ['limit' => 200]);
-        $states = $this->Users->States->find('list', ['limit' => 200]);
+        $cities = $this->Users->Cities->find('list');
+        $states = $this->Users->States->find('list');
         $this->set(compact('user', 'cities', 'states'));
         $this->set('_serialize', ['user']);
     }
@@ -163,6 +169,11 @@ class UsersController extends AppController
             }
             $this->Flash->error('Your username or password is incorrect.');
         }
+        
+        $cities = $this->Users->Cities->find('list');
+        $states = $this->Users->States->find('list');
+        $this->set(compact('user','cities', 'states'));
+        $this->set('_serialize', ['user']);
     }
     
     /**

@@ -32,6 +32,10 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     <?= $this->fetch('meta') ?>
     <?= $this->fetch('css') ?>
     <?= $this->fetch('script') ?>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+    
 </head>
 <body>
     <nav class="top-bar expanded" data-topbar role="navigation">
@@ -60,5 +64,9 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
         <?= ' | ' ?>
         <?= $this->Html->link(__('Registrar treinador'), ['controller' => 'Users', 'action' => 'register', 'trainer']) ?>
     </footer>
+    
+  <!-- scripts -->
+
+  <?= $this->fetch('script') ?>
 </body>
 </html>

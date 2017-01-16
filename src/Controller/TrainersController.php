@@ -91,13 +91,13 @@ class TrainersController extends AppController
             $trainer = $this->Trainers->patchEntity($trainer, $this->request->data);
             
             //By setting the entity property with the session data,
-            //we remove any possibility of the user modifying which user 
+            //we remove any possibility of the user to access another user data
             $trainer->users_id = $this->Auth->user('id');
             
-            $this->log($trainer->users_id);
             if ($this->Trainers->save($trainer)) {
                 $this->Flash->success(__('The trainer has been saved.'));
-                return $this->redirect(['action' => 'edit']);
+                //Get id of trainer just added and redirects to edit page
+                return $this->redirect(['action' => 'edit', $trainer->id]);
             } else {
                 $this->Flash->error(__('The trainer could not be saved. Please, try again.'));
             }
