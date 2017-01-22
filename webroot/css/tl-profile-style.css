@@ -95,8 +95,6 @@ input, select {
 }
 
 .profile-card{
-    border: 1px solid #d9d9d9;
-    border-radius: 2px;
     background-color: #fff;
     padding:30px;
     margin-bottom: 20px;
@@ -104,15 +102,23 @@ input, select {
 }
 
 .profile-inf{
-    
+    margin-bottom: 0px !important;
 }
 
 .mg-rt{
     margin-right: 20px;
 }
 
+.mg-left{
+    margin-left: 20px;
+}
+
 .w400{
     font-weight: 400;
+}
+
+.w600{
+    font-weight: 600;
 }
 
 .foto-profile{
@@ -124,6 +130,70 @@ ul{
     list-style: none;
 }
 
-li{
+.sec-content li{
     padding-bottom: 10px;
+}
+
+.btn-contact{
+    background-color: #17B5D4;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    cursor: pointer;
+}
+
+.btn-contact a{
+    font-weight: 600;
+    color: #FFF;
+}
+
+.p-inf{
+    font-size: 14px;
+}
+
+.mg-0{
+    margin: 0px !important; 
+}
+
+.mg-top-15{
+    margin-top: 15px;
+}
+
+.price-section{
+    background: #f3f3f3;
+    border-radius: 300px;
+    font-size: 10px;
+    margin-top: 20px;
+}
+
+
+/*------EDIT----*/
+
+.edit{
+    cursor: pointer;
+}
+
+.edit:hover{
+    background: #f3f3f3;
+}
+
+.mg-top-75{
+    margin-top: 75px;
+}
+
+.sp-option-menu{
+    float: right;
+    margin: 0px 5px 0px 5px;
+    display: none;
+}
+
+.edit:hover .sp-option-menu{
+    display: block;
+}
+
+.sub-header h4{
+    display: inline;
+}
+
+.tooltip-sub-header{
+    float: right
 }

@@ -37,8 +37,38 @@
 <section id="content" class="sec-content">
     <div class="container">
         <div class="row">
-            <!-- item -->
-            <div class="col-md-7 mg-rt">
+            <div class="col-md-3">
+                <div class="row profile-card profile-inf">
+                    <div class="col-md-12 text-center">
+                        <div class="foto centered">
+                            <?= $this->Html->image('trainer.PNG', ['class'=>'foto-profile img-circle']); ?>
+                        </div>
+                        <div class="col-md-12 text-center mg-top-15">
+                            <h4 class="trainer-name mg-0">Edson Nascimento</h4>
+                            <p class="trainer-specialty mg-0 w400 p-inf">
+                            Personal Trainer
+                            </p>
+                            <p class="trainer-view text-uppercase mg-0 w400 p-inf">
+                            cref 12.4523-45
+                            </p>
+                            <p class="trainer-view mg-0 w400 p-inf">Curitiba,PR</h5> 
+                                
+                            <div class="price-section">
+                                <p class="w400 mg-0 p-inf">Aulas a partir de </p>
+                                <p class="w600 mg-0 p-inf"> R$ 50,00 / hora</p>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    
+                </div><!-- end .row -->
+                <div class="row">
+                    <div class="col-md-12 text-center btn-contact text-uppercase">
+                        <a href="#">Entrar em contato</a>
+                    </div>
+                </div>
+            </div><!-- end .profile-inf  -->
+            <div class="col-md-7 mg-left">
                 <div class="row">
                     <div class="col-md-12 profile-card">
                         <h4 class="w400">Sobre o treinador</h4>
@@ -92,33 +122,7 @@
                     </div>
                 </div>
             </div>
-            
-            <div class="col-md-4 profile-card profile-inf">
-                <div class="row">
-                    <div class="col-md-12 text-center">
-                        <div class="foto centered">
-                            <?= $this->Html->image('trainer.png', ['class'=>'foto-profile img-circle']); ?>
-                        </div>
-                        <p class="trainer-views">
-                            <span style="font-weight: 600">                 
-                                +1000
-                             </span> 
-                            </br>
-                            visualizações
-                        </p>
-                        <p class="trainer-specialty">
-                            Personal Trainer
-                        </p>
-                    </div>
-                    <div class="col-md-12 text-center">
-                        <h4 class="trainer-name">Edson Nascimento</h4>
-                        <h5>Curitiba,PR</h5>
-                        <a href="#" class="btn btn-conf-2 btn-input btn-trainer" role="Button">Entrar em contato</a> 
-                    </div>
-                    
-                </div>
-            </div>
-            <!-- end: -->
+           
         </div>
     </div>
 </section>

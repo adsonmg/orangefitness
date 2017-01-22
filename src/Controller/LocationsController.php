@@ -108,17 +108,20 @@ class LocationsController extends AppController
      * @return \Cake\Network\Response|null Redirects to index.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function delete($id = null)
+    public function delete()
     {
-        $this->request->allowMethod(['post', 'delete']);
-        $location = $this->Locations->get($id);
-        if ($this->Locations->delete($location)) {
-            $this->Flash->success(__('The location has been deleted.'));
-        } else {
-            $this->Flash->error(__('The location could not be deleted. Please, try again.'));
-        }
+        if ($this->request->is(['post'])) {
+            $id = $this->request->data['id'];
+            $this->request->allowMethod(['post', 'delete']);
+            $location = $this->Locations->get($id);
+            if ($this->Locations->delete($location)) {
+                //$this->Flash->success(__('The location has been deleted.'));
+            } else {
+                //$this->Flash->error(__('The location could not be deleted. Please, try again.'));
+            }
+         }
 
-        return $this->redirect(['action' => 'index']);
+        //return $this->redirect(['action' => 'index']);
     }
     
     /**
@@ -130,7 +133,7 @@ class LocationsController extends AppController
         $this->viewBuilder()->layout('cake_layout');
         
         parent::initialize();
-        $this->Auth->allow(['index', 'view', 'add', 'edit']);
+        $this->Auth->allow(['index', 'view', 'add', 'edit', 'delete']);
         //$this->viewBuilder()->layout('cake_layout');
         
         $this->loadComponent('RequestHandler');

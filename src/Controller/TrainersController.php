@@ -119,8 +119,6 @@ class TrainersController extends AppController
      */
     public function edit($id = null)
     {
-        $this->viewBuilder()->layout('cake_layout');
-
         
         $trainer = $this->Trainers->get($id, [
             'contain' => ['Users', 'Specialties', 'SocialMedias', 'Telephones', 'Certificates', 'Articles', 'Degrees', 'Locations']
