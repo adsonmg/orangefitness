@@ -2,6 +2,8 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\Event\Event;
+use Cake\ORM\TableRegistry;
 
 /**
  * Degrees Controller
@@ -51,20 +53,20 @@ class DegreesController extends AppController
      */
     public function add()
     {
+        //Use autorender to avoid missing template error
+        $this->viewBuilder()->layout('ajax');
+        
+        
         $degree = $this->Degrees->newEntity();
         if ($this->request->is('post')) {
             $degree = $this->Degrees->patchEntity($degree, $this->request->data);
-            if ($this->Degrees->save($degree)) {
-                $this->Flash->success(__('The degree has been saved.'));
-
-                return $this->redirect(['action' => 'index']);
-            } else {
-                $this->Flash->error(__('The degree could not be saved. Please, try again.'));
-            }
+            
+             if ($this->Degrees->save($degree)) {
+                $trainers = $this->Degrees->Trainers->find('list');
+                $this->set(compact('degree', 'trainers'));
+                $this->set('_serialize', ['degree']);
+             }
         }
-        $trainers = $this->Degrees->Trainers->find('list', ['limit' => 200]);
-        $this->set(compact('degree', 'trainers'));
-        $this->set('_serialize', ['degree']);
     }
 
     /**
@@ -101,17 +103,21 @@ class DegreesController extends AppController
      * @return \Cake\Network\Response|null Redirects to index.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function delete($id = null)
+    public function delete()
     {
-        $this->request->allowMethod(['post', 'delete']);
-        $degree = $this->Degrees->get($id);
-        if ($this->Degrees->delete($degree)) {
-            $this->Flash->success(__('The degree has been deleted.'));
-        } else {
-            $this->Flash->error(__('The degree could not be deleted. Please, try again.'));
-        }
+        //Use autorender to avoid missing template error
+        $this->viewBuilder()->layout('ajax');
+       if ($this->request->is(['post'])) {
+            $id = $this->request->data['id'];
+            $this->request->allowMethod(['post', 'delete']);
+            $degree = $this->Degrees->get($id);
+            if ($this->Degrees->delete($degree)) {
+                //$this->Flash->success(__('The degree has been deleted.'));
+            } else {
+                //$this->Flash->error(__('The degree could not be deleted. Please, try again.'));
+            }
+       }
 
-        return $this->redirect(['action' => 'index']);
     }
     
     /**
@@ -123,7 +129,24 @@ class DegreesController extends AppController
         $this->viewBuilder()->layout('cake_layout');
         
         parent::initialize();
-        $this->Auth->allow(['index', 'view', 'add', 'edit']);
+        $this->Auth->allow(['index', 'view', 'add', 'edit', 'degree', 'delete']);
         //$this->viewBuilder()->layout('cake_layout');
+    
+      
+        $this->loadComponent('RequestHandler');
+
+    }
+    
+    /**
+     * Source: https://book.cakephp.org/3.0/en/controllers/components/request-handling.html
+     * Source: http://stackoverflow.com/questions/32078051/cakephp-3-json-render-view-not-working
+     * @param Event $event
+     */
+    public function beforeRender(Event $event)
+    {
+        $this->RequestHandler->renderAs($this, 'json');
+        $this->response->type('application/json');
+        $this->set('_serialize', true);
+        
     }
 }

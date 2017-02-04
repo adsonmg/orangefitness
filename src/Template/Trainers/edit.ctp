@@ -12,6 +12,7 @@
 
 <script>
     $(document).ready(function () {
+        //=======================Location=================================
         //Location Form submit
         $("#form-location").submit(function (event) {
 
@@ -92,6 +93,76 @@
             //Use ajax to save changes
             return false;
         });
+        
+        //===========================End location==============
+        
+        //=============================Degree==================
+        //Location Form submit
+        $("#form-degree").submit(function (event) {
+
+            //Get fomr data
+            var data = $(this).serialize();
+
+            //Create a post request
+            var request = $.post('<?php
+            echo $this->Url->build([
+                'controller' => 'Degrees',
+                'action' => 'add'
+            ]);
+            ?>',
+            data);
+
+            //Get request response
+            request.done(function (response) {
+                var obj = jQuery.parseJSON(response);
+                $("#input-add-degree-instituition").val('');
+                $("#input-add-degree-course").val('');
+                $("#input-add-degree-duration").val('');
+                $("#input-add-degree-description").val('');
+                $("#degrees").append("<li class=\"edit degree-info\" id=\"" + obj.id +"\" >" +
+                                "<div class=\"block degree-course\">" +
+                                "<span style=\"font-weight: 600;\" class=\"value-degree-course\">"+obj.course+"</span>" +
+                                "<span class=\"sp-option-menu edit-degree\">editar</span>" +
+                                "<span class=\"sp-option-menu delete-degree\">excluir</span>" +
+                                "</div>" +
+                                "<div class=\"block degree-instituition\">"+
+                                 obj.instituition +
+                                "</div>" +
+                                "<div class=\"block degre-description\">" +
+                                 obj.description +
+                                "</div>" +
+                            "</li>");
+            })
+            .fail(function () {
+                alert("error");
+            });
+            return false;
+
+        });
+        
+        $(document).on('click', '.delete-degree', function(e){
+            var thisParent =  $(this).parent().parent();
+            var elementId = thisParent.attr('id');
+            
+            var requestDelete = $.post('<?php
+                echo $this->Url->build([
+                    'controller' => 'Degrees',
+                    'action' => 'delete'
+                ]);
+                ?>',
+                {
+                    'id': elementId
+                });
+            requestDelete.done(function (response){
+                thisParent.remove();
+            })
+            .fail(function(jqXHR, textStatus, errorThrown){
+                console.log('error: ' + errorThrown);
+                alert('Ocorreu um erro ao deletar. Tente novamente.');
+            });
+        });
+        
+        //============================End degrre===============
         
         
         //tooltip bootstrap
@@ -190,18 +261,75 @@
     
                     </div>
                     <div class="col-md-12 profile-card">
-                        <h4 class="w400">Formação</h4>
+                        <div class="sub-header">
+                            <h4 class="w400">Formação</h4> 
+                            <span class="tooltip-sub-header">
+                                <a href="#" data-toggle="tooltip" data-placement="bottom" title="Falar alguma coisa sobre formação">?</a>
+                            </span>
+                        </div>
                         <hr>
-                        <ul>
-                            <li class="edit"><span style="font-weight: 600;">  Lorem ipsum dolor sit amet, illum decore omittam </span><br>
-                        inani facete ius ne. Te iriure definiebas reprehendunt per, cum ne quas indoctum.
+                        <ul id="degrees">
+                            <?php foreach ($trainer->degrees as $degree): ?>
+                            <li class="edit degree-info" id="<?= h($degree->id) ?>" >
+                                <div class="block degree-course">
+                                <span style="font-weight: 600;" class="value-degree-course"><?= h($degree->course) ?></span>
+                                <span class="sp-option-menu edit-degree">editar</span>
+                                <span class="sp-option-menu delete-degree">excluir</span>
+                                </div>
+                                <div class="block degree-instituition">
+                                    <?= h($degree->instituition) ?>
+                                </div>
+                                <div class="block degre-description">
+                                    <?= h($degree->description) ?>
+                                </div>
                             </li>
-                            <li class="edit"><span style="font-weight: 600;">  Nam alii paulo at, vis iriure legimus </span><br>
-                        delicatissimi at vim. Debet munere utroque sit et, solum partem phaedrum eam an.</li>
-                            <li class="edit"><span style="font-weight: 600;">  Debet munere utroque sit et </span><br>
-                        est brute impetus comprehensam ut.</li>
+                            <?php endforeach; ?>
                         </ul>
-
+                        <?=
+                        $this->Form->create(null, [
+                            'id' => 'form-degree',
+                        ])
+                        ?>
+                        <fieldset>
+                            <legend><?= __('Adicionar Formação') ?></legend>
+                            <?php
+                            echo $this->Form->input('instituition', [
+                                    'class' => 'form-control',
+                                    'label' => false,
+                                    'placeholder' => 'Instituição onde estudou',
+                                    'id'=> 'input-add-degree-instituition'
+                                ]);
+                            echo $this->Form->input('course',[
+                                    'class' => 'form-control',
+                                    'label' => false,
+                                    'placeholder' => 'Nome do curso',
+                                    'id'=> 'input-add-degree-course'
+                                ]);
+                            echo $this->Form->input('duration',[
+                                    'class' => 'form-control',
+                                    'label' => false,
+                                    'placeholder' => 'Duração',
+                                    'id'=> 'input-add-degree-duration'
+                                ]);
+                            
+                            echo $this->Form->input('description',[
+                                    'type' => 'textarea',
+                                    'class' => 'form-control',
+                                    'label' => false,
+                                    'placeholder' => 'Breve descrição',
+                                    'id'=> 'input-add-degree-description',
+                                    'style' => 'margin-bottom: 15px'
+                                ]);
+                            echo $this->Form->hidden('trainers_id', ['value' => $trainer->id]);
+                            ?>
+                        </fieldset>
+                        <?=
+                            $this->Form->button(__('Salvar'), [
+                                'id' => 'submit-degree',
+                                'class' => 'btn btn-conf btn-input'
+                            ])
+                            ?>
+                        <?= $this->Form->end() ?>
                     </div>
                     <div class="col-md-12 profile-card" >
                         <div class="sub-header">
