@@ -128,7 +128,7 @@
                                 "<div class=\"block degree-instituition\">"+
                                  obj.instituition +
                                 "</div>" +
-                                "<div class=\"block degre-description\">" +
+                                "<div class=\"block degree-description\">" +
                                  obj.description +
                                 "</div>" +
                             "</li>");
@@ -140,6 +140,7 @@
 
         });
         
+        //Delete Degree
         $(document).on('click', '.delete-degree', function(e){
             var thisParent =  $(this).parent().parent();
             var elementId = thisParent.attr('id');
@@ -160,6 +161,81 @@
                 console.log('error: ' + errorThrown);
                 alert('Ocorreu um erro ao deletar. Tente novamente.');
             });
+        });
+        
+        //TODO: ainda existem itens para serem corrigidos nessa parte
+        //Edit Degree
+        $(document).on('click', '.edit-degree', function(e){
+           
+            var degreeInstitution = $(this).parent().parent().find('.degree-instituition').text();
+            var degreeDescription = $(this).parent().parent().find('.degree-description').text();
+            var degreeDuration = $(this).parent().parent().find('.degree-duration').text();
+            var degreeCourse = $(this).parent().parent().find('.value-degree-course').text();
+            var degreeId = $(this).parent().parent().attr('id');
+            
+            $(this).parent().parent().replaceWith("<form method=\"post\" accept-charset=\"utf-8\" id=\"form-degree-edit\" action=\"/trainerlink/trainers/edit/#\">" +
+                "<div style=\"display:none;\">"+
+                "<input type=\"hidden\" name=\"_method\" value=\"POST\">"+
+                "<input type=\"hidden\" name=\"degreeid\" value=\""+degreeId+"\">"+
+                "</div>"+                        
+                "<fieldset>"+
+                "<div class=\"input text\">"+
+                "<input type=\"text\" value=\""+degreeCourse+"\" name=\"instituition\" class=\"form-control\" placeholder=\"Instituição onde estudou\" id=\"input-add-degree-instituition\">"+
+                "</div>"+
+                "<div class=\"input text\">"+
+                "<input type=\"text\" value=\""+degreeInstitution+"\" name=\"course\" class=\"form-control\" placeholder=\"Nome do curso\" id=\"input-add-degree-course\">"+
+                "</div>"+
+                "<div class=\"input text\">"+
+                "<input type=\"text\" value=\""+degreeDuration+"\" name=\"duration\" class=\"form-control\" placeholder=\"Duração\" id=\"input-add-degree-duration\">"+
+                "</div>"+
+                "<div class=\"input textarea\">"+
+                "<textarea name=\"description\" class=\"form-control\" placeholder=\"Breve descrição\" id=\"input-add-degree-description\" style=\"margin-bottom: 15px\" rows=\"5\">"+degreeDescription+"</textarea>"+
+                "</div>"+
+                "<input type=\"hidden\" name=\"trainers_id\" value=\"1\">"+                       
+                "</fieldset>"+
+                "<button id=\"submit-degree\" class=\"btn btn-conf btn-input\" type=\"submit\">Salvar</button>"+                        
+                "</form>");
+        });
+        
+         //Form Edit Degree
+        $("form-degree-edit").submit(function (event) {
+            
+            alert("opa", event);
+
+            /*
+            //Get fomr data
+            var data = $(this).serialize();
+
+            Create a post request
+          
+
+            //Get request response
+            request.done(function (response) {
+                var obj = jQuery.parseJSON(response);
+                $("#input-add-degree-instituition").val('');
+                $("#input-add-degree-course").val('');
+                $("#input-add-degree-duration").val('');
+                $("#input-add-degree-description").val('');
+                $("#degrees").append("<li class=\"edit degree-info\" id=\"" + obj.id +"\" >" +
+                                "<div class=\"block degree-course\">" +
+                                "<span style=\"font-weight: 600;\" class=\"value-degree-course\">"+obj.course+"</span>" +
+                                "<span class=\"sp-option-menu edit-degree\">editar</span>" +
+                                "<span class=\"sp-option-menu delete-degree\">excluir</span>" +
+                                "</div>" +
+                                "<div class=\"block degree-instituition\">"+
+                                 obj.instituition +
+                                "</div>" +
+                                "<div class=\"block degree-description\">" +
+                                 obj.description +
+                                "</div>" +
+                            "</li>");
+            })
+            .fail(function () {
+                alert("error");
+            });
+            */
+            return false;
+
         });
         
         //============================End degrre===============
@@ -279,7 +355,7 @@
                                 <div class="block degree-instituition">
                                     <?= h($degree->instituition) ?>
                                 </div>
-                                <div class="block degre-description">
+                                <div class="block degree-description">
                                     <?= h($degree->description) ?>
                                 </div>
                             </li>
