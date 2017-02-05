@@ -56,6 +56,7 @@ class TrainersTable extends Table
             'dependent' => true
         ]);
         
+        
         //A trainer has many telephones
         $this->hasMany('Telephones', [
             'foreignKey' => 'trainers_id',

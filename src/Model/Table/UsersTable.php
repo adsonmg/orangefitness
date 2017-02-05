@@ -42,6 +42,7 @@ class UsersTable extends Table
         $this->addBehavior('Timestamp');
 
         $this->belongsTo('Cities', [
+            'className' => 'Cities',
             'foreignKey' => 'cities_id',
             'joinType' => 'INNER'
         ]);

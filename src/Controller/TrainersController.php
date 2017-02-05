@@ -68,9 +68,9 @@ class TrainersController extends AppController
     {
 
         $trainer = $this->Trainers->get($id, [
-            'contain' => ['Users', 'Specialties', 'SocialMedias', 'Telephones', 'Certificates', 'Articles']
+            'contain' => ['Users', 'Specialties', 'SocialMedias', 'Telephones', 'Certificates', 'Articles', 'Degrees', 'Locations']
         ]);
-
+                
         $this->set('trainer', $trainer);
         $this->set('_serialize', ['trainer']);
     }
