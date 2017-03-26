@@ -2,6 +2,8 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\ORM\TableRegistry;
+
 
 /**
  * Trainers Controller
@@ -68,8 +70,10 @@ class TrainersController extends AppController
     {
 
         $trainer = $this->Trainers->get($id, [
-            'contain' => ['Users', 'Specialties', 'SocialMedias', 'Telephones', 'Certificates', 'Articles', 'Degrees', 'Locations']
+            'contain' => ['Users', 'Specialties', 'SocialMedias', 'Telephones', 'Certificates', 'Articles', 'Degrees', 'Locations', 'Users.Cities', 'Users.States']
         ]);
+        
+        //debug($trainer);
                 
         $this->set('trainer', $trainer);
         $this->set('_serialize', ['trainer']);
@@ -121,7 +125,7 @@ class TrainersController extends AppController
     {
         
         $trainer = $this->Trainers->get($id, [
-            'contain' => ['Users', 'Specialties', 'SocialMedias', 'Telephones', 'Certificates', 'Articles', 'Degrees', 'Locations']
+            'contain' => ['Users', 'Specialties', 'SocialMedias', 'Telephones', 'Certificates', 'Articles', 'Degrees', 'Locations', 'Users.Cities', 'Users.States']
         ]);
                 if ($this->request->is(['patch', 'post', 'put'])) {
             $trainer = $this->Trainers->patchEntity($trainer, $this->request->data);
@@ -134,9 +138,98 @@ class TrainersController extends AppController
             }
         }
         $users = $this->Trainers->Users->find('list', ['limit' => 200]);
-        $specialties = $this->Trainers->Specialties->find('list', ['limit' => 200]);
+        
+        //notMatching excludes specialties already taken 
+        //by the trainer
+        $specialties = $this->Trainers->Specialties
+                ->find('all')
+                ->notMatching('TrainersSpecialties', function ($q) use ($trainer) {
+                    return $q->where(['trainer_id' => $trainer->id]);
+                });
+                
         $this->set(compact('trainer', 'users', 'specialties'));
-        $this->set('_serialize', ['trainer']);
+        $this->set('_serialize', ['trainer', 'specialties']);
+    }
+    
+    public function editBio(){
+        
+        $this->RequestHandler->renderAs($this, 'json');
+        $this->response->type('application/json');
+        $this->set('_serialize', true);
+        
+        //Use autorender to avoid missing template error
+        $this->viewBuilder()->layout('ajax');
+        
+        if ($this->request->is('post')) {
+            $id = $this->request->data['users_id'];
+            $newBio = $this->request->data['bio'];
+            
+            $trainer = $this->Trainers->get($id);
+            $trainer->bio = $newBio;
+            
+            if ($this->Trainers->save($trainer)){
+              // saved
+            } else {
+              // something went wrong
+            }
+              
+            $this->set(compact('trainer'));
+            $this->set('_serialize', ['trainer']);
+            
+        }
+        
+        
+    }
+    
+    public function addSpecialty(){
+        
+        $this->RequestHandler->renderAs($this, 'json');
+        $this->response->type('application/json');
+        $this->set('_serialize', true);
+        
+        //Use autorender to avoid missing template error
+        $this->viewBuilder()->layout('ajax');
+        
+        if ($this->request->is('post')) {
+            
+            $this->loadModel('Specialties');
+            
+            $trainer = $this->Trainers->get($this->request->data['trainer_id']);
+            $specialty = $this->Specialties->get($this->request->data['specialty_id']);
+
+//            Often you’ll find yourself wanting to make an association between two existing entities,
+//            eg. a user coauthoring an article. This is done by using the method link()
+            $this->Trainers->Specialties->link($trainer, [$specialty]);
+            
+            $this->set(compact('trainer'));
+            $this->set('_serialize', ['trainer']);
+        }
+    
+    }
+    
+    public function deleteSpecialty(){
+        
+        $this->RequestHandler->renderAs($this, 'json');
+        $this->response->type('application/json');
+        $this->set('_serialize', true);
+        
+        //Use autorender to avoid missing template error
+        $this->viewBuilder()->layout('ajax');
+        
+        if ($this->request->is('post')) {
+            
+            $this->loadModel('Specialties');
+            
+            $trainer = $this->Trainers->get($this->request->data['trainer_id']);
+            $specialty = $this->Specialties->get($this->request->data['specialty_id']);
+
+//            Often you’ll find yourself wanting to make an association between two existing entities,
+//            eg. a user coauthoring an article. This is done by using the method link()
+            $this->Trainers->Specialties->unlink($trainer, [$specialty]);
+            
+            
+        }
+    
     }
 
     /**
@@ -193,6 +286,9 @@ class TrainersController extends AppController
     public function initialize()
     {
         parent::initialize();
-        $this->Auth->allow(['view']);
+        $this->Auth->allow(['view', 'editBio', 'addSpecialty', 'deleteSpecialty']);
+        $this->loadComponent('RequestHandler');
+
     }
+    
 }

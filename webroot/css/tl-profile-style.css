@@ -184,11 +184,12 @@ ul{
 }
 
 .label-specialties{
+    display: inline-block;
     background-color: #ddd;
     color: #000;
     font-weight: 400;
     padding: 10px 15px 10px 15px;
-    margin: 5px;
+    margin: 0px 5px 5px 0px;
 }
 
 #card-affix{
@@ -240,4 +241,27 @@ ul{
 
 .tooltip-sub-header{
     float: right
+}
+
+input[type="checkbox"] {
+    line-height: normal;
+    position: relative;
+    vertical-align: middle;
+    bottom: 1px;
+}
+
+.specialtyAdd:hover{
+    background-color: #17b5d4;
+    color: #fff;
+    cursor: pointer;
+}
+
+.specialtyTrainer:hover{
+    background-color: #ff6357;
+    color: #fff;
+    cursor: pointer;
+}
+
+.add-information{
+    display: none;
 }

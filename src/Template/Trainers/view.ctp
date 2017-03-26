@@ -6,6 +6,8 @@
 <?= $this->Html->css('ionicons.min.css', ['block' => true]) ?>
 <?= $this->Html->css('tl-profile-style.css', ['block' => true]) ?>
 <?= $this->Html->css('footer.css', ['block' => true]) ?>
+
+<!--
 <script>
 $(document).ready(function(){
     $('#card-affix').affix({
@@ -17,7 +19,7 @@ $(document).ready(function(){
       
 });
 </script>
-
+-->
 <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
  <?= $this->Html->script('ie10-viewport-bug-workaround.js', ['block' => true]) ?>
 
@@ -51,7 +53,7 @@ $(document).ready(function(){
     <div class="container">
         <div class="row">
             <div class="col-md-3">
-                <div id="card-affix" class="affix" data-spy="affix">
+                <div >
                     <div class="row profile-card profile-inf">
                         <div class="col-md-12 text-center">
                             <div class="foto centered">
@@ -65,7 +67,7 @@ $(document).ready(function(){
                                 <p class="trainer-view text-uppercase mg-0 w400 p-inf">
                                 <?= "CREF ".$trainer->CREF ?>
                                 </p>
-                                <p class="trainer-view mg-0 w400 p-inf"><?= $trainer->user->cities_id.','.$trainer->user->states_id ?></h5> 
+                                <p class="trainer-view mg-0 w400 p-inf"><?= $trainer->user->city->name.','.$trainer->user->state->uf ?></h5> 
 
                                 <div class="price-section">
                                     <p class="w400 mg-0 p-inf">Aulas a partir de </p>

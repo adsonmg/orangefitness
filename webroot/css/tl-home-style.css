@@ -7,7 +7,7 @@ input, select {
         color:#5a5a5a;
 	font-size: 16px;
 	min-height: 40px;
-	border-radius: 7px;
+	border-radius: 5px;
 	line-height: 20px;
 	padding: 15px 30px 16px;
 	border: 1px solid #b9b9af;
@@ -37,7 +37,7 @@ input, select {
 
 /*Buttons Configuration */
 .btn-conf {
-	border-radius: 7px;
+	border-radius: 5px;
 	margin-right: 15px;
 	font-size: 11px;
 	letter-spacing: 1px;
@@ -46,7 +46,7 @@ input, select {
 	}
 
 .btn-conf-2 {
-	border-radius: 7px;
+	border-radius: 5px;
 	margin-right: 15px;
 	font-size: 11px;
 	letter-spacing: 1px;
@@ -56,7 +56,13 @@ input, select {
 	}	
 
 .btn-input {
-	background: #FF6357;
+	background: #EA3228;
+        color: white;
+        font-weight: 900;
+}
+
+.btn-input-cad {
+	background: #22262C;
         color: white;
         font-weight: 900;
 }
@@ -138,11 +144,11 @@ a:hover{
 
 /* SEP */
 #sep {
-    background: url(../img/sep.jpg) no-repeat center top;
-    padding-top: 90px;
+    background: url(../img/sep1.png) no-repeat center top;
+    padding-top: 50px;
     background-attachment: relative;
     background-position: center center;
-    min-height: 450px;
+    min-height: 350px;
     width: 100%;
     color: white;
 	
@@ -237,11 +243,9 @@ ul {
 /* GREEN SECTION - TESTIMONIAL */
 
 #testimonial {
-	padding-top: 90px;
-	padding-bottom: 60px;
-	min-height: 300px;
-	background: #FF6357;
-	color: white;
+	padding-top: 50px;
+	padding-bottom: 50px;
+	min-height: 430px;
 }
 
 #testmonial tgr {
@@ -310,3 +314,4 @@ ul {
     width: 120px;
     height: 120px;
 }
+

@@ -12,13 +12,149 @@
 
 <script>
     $(document).ready(function () {
+        var trainerJSONData = JSON.parse('<?= json_encode($trainer); ?>');
+        console.log( trainerJSONData);
+        console.log( trainerJSONData.id );
+               
+        //=======================Bio edit=================================
+        $(document).on('click', '.edit-btn-bio', function(e){
+            
+            //var curId = $(this).parent().attr('id');
+            $('#bio').removeClass('edit');
+            $('#bio').removeClass('edit-bio');
+            $('.edit-bio-text').replaceWith("<div class=\"form-edit-bio-text\"><form method=\"post\" accept-charset=\"utf-8\" id=\"form-bio-edit\" action=\"/trainerlink/trainers/edit/#\">" +
+                    "<textarea name=\"bio\" class=\"form-control\" placeholder=\"Fale um pouco sobre você\" id=\"input-add-bio-text\" style=\"margin-bottom: 15px\" rows=\"10\">"+trainerJSONData.bio+'</textarea>' +
+                    "<input type=\"hidden\" name=\"users_id\" value=\"<?= $trainer->users_id; ?>\"/>" +
+                    "<button id=\"submit-degree\" class=\"btn btn-conf btn-input\" type=\"submit\">Salvar</button>"+
+                    "</form></div>");
+        });
+        
+        
+        $(document).on('submit', '#form-bio-edit', function(e){
+            //Get fomr data
+            var data = $(this).serialize();
+                        
+            var bioText = $("#input-add-bio-text").val();
+
+            //Create a post request
+            var request = $.post('<?php
+                            echo $this->Url->build([
+                                'controller' => 'Trainers',
+                                'action' => 'editBio'
+                            ]);
+                            ?>',
+                            data);
+            
+            //Get request response
+            request.done(function () {
+                $('#bio').addClass('edit');
+                $('#bio').addClass('edit-bio');
+                trainerJSONData.bio = bioText;
+                $('.form-edit-bio-text').replaceWith("<div class=\"edit-bio-text\">"+ bioText +"</div>");
+
+            })
+            .fail(function (response) {
+                console.log("Error: " + response);
+            });
+            
+            return false;
+            
+        });
+        
+        //======================End bio===================================
+        //======================Specialties================================
+        
+        //Add
+        $(document).on('click', '.specialtyAdd', function(e){
+            //Get fomr data
+            var id = $(this).prop("id");
+            var specialtyName = $(this).text();
+            console.log(specialtyName);
+            
+            
+            var specialtyId = id.split("-")[1];
+            
+            var div = $(this);
+            
+            
+            //Create a post request
+            var request = $.post('<?php
+            echo $this->Url->build([
+                'controller' => 'Trainers',
+                'action' => 'addSpecialty'
+            ]);
+            ?>',
+            {
+             trainer_id: <?= $trainer->id?>,
+             specialty_id: specialtyId
+            });
+
+            //Get request response
+            request.done(function (response) {
+                div.fadeOut("fast", function() {
+                    // Animation complete.
+                    div.remove();
+                    $("#trainer-speciaties").append("<div class=\"label label-specialties specialtyTrainer\" id=\""+id+"\">"+specialtyName+"</div>");
+
+                });
+            })
+            .fail(function () {
+                alert("error");
+            });
+            
+                        
+            
+        });
+        
+        //Remove
+        $(document).on('click', '.specialtyTrainer', function(e){
+            //Get fomr data
+            var id = $(this).prop("id");
+            var specialtyName = $(this).text();
+            
+            var div = $(this);
+            
+            
+            
+             var specialtyId = id.split("-")[1];
+            
+            //Create a post request
+            var request = $.post('<?php
+            echo $this->Url->build([
+                'controller' => 'Trainers',
+                'action' => 'deleteSpecialty'
+            ]);
+            ?>',
+            {
+             trainer_id: <?= $trainer->id?>,
+             specialty_id: specialtyId
+            });
+
+            //Get request response
+            request.done(function (response) {
+                div.fadeOut("fast", function() {
+                    // Animation complete.
+                    div.remove();
+                    $("#speciaties-to-add").append("<div class=\"label label-specialties specialtyAdd\" id=\""+id+"\">"+specialtyName+"</div>");
+
+                });
+            })
+            .fail(function () {
+                alert("error");
+            });
+            
+                        
+            
+        });
+        
+        //===================== End specialties ==========================
         //=======================Location=================================
         //Location Form submit
         $("#form-location").submit(function (event) {
 
             //Get fomr data
             var data = $(this).serialize();
-
+            
             //Create a post request
             var request = $.post('<?php
             echo $this->Url->build([
@@ -33,7 +169,8 @@
                 var obj = jQuery.parseJSON(response);
                 $("#input-add-location").val('');
                 $("#locations").append('<li class="edit location_name"  id="' + obj.id + '" ><span style="font-weight: 600;" class="value-location">' + obj.location + "</span><span class=\"sp-option-menu edit-location-name\">editar</span><span class=\"sp-option-menu delete-location-name\">excluir</span></li>");
-
+                $("#add-location").css("display", "none");
+                $("#btn-add-location").css("display", "block");
             })
             .fail(function () {
                 alert("error");
@@ -94,6 +231,12 @@
             return false;
         });
         
+        //btn-add-location
+        $(document).on('click', '#btn-add-location', function(e){ 
+            $("#add-location").css("display", "block");
+            $("#btn-add-location").css("display", "none");
+        });
+        
         //===========================End location==============
         
         //=============================Degree==================
@@ -132,6 +275,9 @@
                                  obj.description +
                                 "</div>" +
                             "</li>");
+                    
+             $("#add-degree").css("display", "none");
+            $("#btn-add-degree").css("display", "block");
             })
             .fail(function () {
                 alert("error");
@@ -176,14 +322,13 @@
             $(this).parent().parent().replaceWith("<form method=\"post\" accept-charset=\"utf-8\" id=\"form-degree-edit\" action=\"/trainerlink/trainers/edit/#\">" +
                 "<div style=\"display:none;\">"+
                 "<input type=\"hidden\" name=\"_method\" value=\"POST\">"+
-                "<input type=\"hidden\" name=\"degreeid\" value=\""+degreeId+"\">"+
                 "</div>"+                        
                 "<fieldset>"+
                 "<div class=\"input text\">"+
-                "<input type=\"text\" value=\""+degreeCourse+"\" name=\"instituition\" class=\"form-control\" placeholder=\"Instituição onde estudou\" id=\"input-add-degree-instituition\">"+
+                "<input type=\"text\" value=\""+degreeCourse+"\" name=\"course\" class=\"form-control\" placeholder=\"Instituição onde estudou\" id=\"input-add-degree-instituition\">"+
                 "</div>"+
                 "<div class=\"input text\">"+
-                "<input type=\"text\" value=\""+degreeInstitution+"\" name=\"course\" class=\"form-control\" placeholder=\"Nome do curso\" id=\"input-add-degree-course\">"+
+                "<input type=\"text\" value=\""+degreeInstitution+"\" name=\"instituition\" class=\"form-control\" placeholder=\"Nome do curso\" id=\"input-add-degree-course\">"+
                 "</div>"+
                 "<div class=\"input text\">"+
                 "<input type=\"text\" value=\""+degreeDuration+"\" name=\"duration\" class=\"form-control\" placeholder=\"Duração\" id=\"input-add-degree-duration\">"+
@@ -191,31 +336,36 @@
                 "<div class=\"input textarea\">"+
                 "<textarea name=\"description\" class=\"form-control\" placeholder=\"Breve descrição\" id=\"input-add-degree-description\" style=\"margin-bottom: 15px\" rows=\"5\">"+degreeDescription+"</textarea>"+
                 "</div>"+
-                "<input type=\"hidden\" name=\"trainers_id\" value=\"1\">"+                       
+                "<input type=\"hidden\" name=\"trainers_id\" value=\"<?= $trainer->id?>\">"+   
+                "<input type=\"hidden\" name=\"id\" value=\""+degreeId+"\">"+ 
                 "</fieldset>"+
                 "<button id=\"submit-degree\" class=\"btn btn-conf btn-input\" type=\"submit\">Salvar</button>"+                        
                 "</form>");
         });
         
          //Form Edit Degree
-        $("form-degree-edit").submit(function (event) {
+        $(document).on('submit', '#form-degree-edit', function(e){ 
             
-            alert("opa", event);
 
-            /*
+            
             //Get fomr data
             var data = $(this).serialize();
 
-            Create a post request
+            //Create a post request
+            var request = $.post('<?php
+            echo $this->Url->build([
+                'controller' => 'Degrees',
+                'action' => 'edit'
+            ]);
+            ?>',
+            data);
           
 
             //Get request response
             request.done(function (response) {
                 var obj = jQuery.parseJSON(response);
-                $("#input-add-degree-instituition").val('');
-                $("#input-add-degree-course").val('');
-                $("#input-add-degree-duration").val('');
-                $("#input-add-degree-description").val('');
+                $("#form-degree-edit").remove();
+            
                 $("#degrees").append("<li class=\"edit degree-info\" id=\"" + obj.id +"\" >" +
                                 "<div class=\"block degree-course\">" +
                                 "<span style=\"font-weight: 600;\" class=\"value-degree-course\">"+obj.course+"</span>" +
@@ -233,9 +383,15 @@
             .fail(function () {
                 alert("error");
             });
-            */
+            
             return false;
 
+        });
+        
+        //btn-add-degree
+        $(document).on('click', '#btn-add-degree', function(e){ 
+            $("#add-degree").css("display", "block");
+            $("#btn-add-degree").css("display", "none");
         });
         
         //============================End degrre===============
@@ -273,77 +429,86 @@
     <div class="container">
         <div class="row">
             <div class="col-md-3">
-                <div class="row profile-card profile-inf">
-                    <div class="col-md-12 text-center">
-                        <div class="foto centered">
-                            <?= $this->Html->image('trainer.PNG', ['class'=>'foto-profile img-circle']); ?>
-                        </div>
-                        <div class="col-md-12 text-center mg-top-15">
-                            <h4 class="trainer-name mg-0 edit">Edson Nascimento</h4>
-                            <p class="trainer-specialty mg-0 w400 p-inf edit">
-                            Personal Trainer
-                            </p>
-                            <p class="trainer-view text-uppercase mg-0 w400 p-inf edit">
-                            cref 12.4523-45
-                            </p>
-                            <p class="trainer-view mg-0 w400 p-inf edit">Curitiba,PR</h5> 
-                                
-                            <div class="price-section edit">
-                                <p class="w400 mg-0 p-inf">Aulas a partir de </p>
-                                <p class="w600 mg-0 p-inf"> R$ 50,00 / hora</p>
+                <div >
+                    <div class="row profile-card profile-inf">
+                        <div class="col-md-12 text-center">
+                            <div class="foto centered">
+                                <?= $this->Html->image('trainer.PNG', ['class'=>'foto-profile img-circle']); ?>
                             </div>
+                            <div class="col-md-12 text-center mg-top-15">
+                                <h4 class="trainer-name mg-0"><?= $trainer->user->name ?></h4>
+                                <p class="trainer-specialty mg-0 w400 p-inf">
+                                Personal Trainer
+                                </p>
+                                <p class="trainer-view text-uppercase mg-0 w400 p-inf">
+                                <?= "CREF ".$trainer->CREF ?>
+                                </p>
+                                <p class="trainer-view mg-0 w400 p-inf"><?= $trainer->user->city->name.','.$trainer->user->state->uf ?></h5> 
+
+                                <div class="price-section">
+                                    <p class="w400 mg-0 p-inf">Aulas a partir de </p>
+                                    <p class="w600 mg-0 p-inf"> <?= $trainer->average_price ?> / hora</p>
+                                </div>
+                            </div>
+
                         </div>
-                        
-                    </div>
-                    
-                </div><!-- end .row -->
-                <div class="row">
-                    <div class="col-md-12 text-center btn-contact text-uppercase">
-                        <a href="#">Alterar email de contato</a>
+
+                    </div><!-- end .row -->
+                    <div class="row">
+                        <div class="col-md-12 text-center btn-contact text-uppercase">
+                            <a href="#">Editar email de contato</a>
+                        </div>
                     </div>
                 </div>
             </div><!-- end .profile-inf  -->
             <div class="col-md-7 mg-left">
                 <div class="row">
                     <div class="col-md-12 profile-card">
-                        <h4 class="w400">Sobre o treinador</h4>
+                        <div class="subtitle-cont">
+                            <h4 class="w600 subtitle">Sobre o treinador</h4>
+                        </div>
                         <hr>
-                        <div class="edit edit-bio">
-                            Lorem ipsum dolor sit amet, illum decore omittam nec et, eu per semper singulis,
-                            inani facete ius ne. Te iriure definiebas reprehendunt per, cum ne quas indoctum,
-                            qui et nobis facilis alienum. Nam alii paulo at, vis iriure legimus et, delectus 
-                            delicatissimi at vim. Debet munere utroque sit et, solum partem phaedrum eam an, 
-                            est brute impetus comprehensam ut.
-                            Te vix oratio dissentias, an aliquip antiopam per, an diam clita affert nam. 
-                            Fierent scriptorem te duo, ea posse recusabo deseruisse vix. Delenit maluisset ius eu, 
-                            ei oratio facilis interpretaris eam. Ex laudem qualisque nec, nihil adipisci referrentur 
-                            id sed, mollis tincidunt concludaturque at sed. An error simul vis.
+                        <div class="contn">
+                            <div id="bio" class="edit edit-bio">
+                                <div class="edit-bio-text">
+                                    <?= $trainer->bio ?>
+                                </div>
+                                <div style="width: 100%; height: 20px;">
+                                <span class="sp-option-menu edit-btn-bio">editar</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="col-md-12 profile-card">
-                        <h4 class="w400">Especialidades</h4>
+                        <div class="subtitle-cont">
+                        <?= $this->Html->image('especialidades.png'); ?>
+                        <h4 class="w600 subtitle">Especialidades</h4>
+                        </div>
                         <hr>
-                        <?php
-                           echo $this->Form->input('specialties._ids', [
-                            'templates' => [
-                                'checkboxWrapper' => '<div class="col-md-3 col-md-4">{{label}}</div>',
-                            ],
-                            'options' => $specialties,
-                            'type' => 'select',
-                            'multiple' => 'checkbox',
-                            'label' => false,
-                        ]);
-                        ?>
-    
+                        <div class="contn">
+                            <div id="trainer-speciaties">
+                                <?php foreach ($trainer->specialties as $specialty): ?>
+                                    <div class="label label-specialties specialtyTrainer" id="specialty-<?= h($specialty->id) ?>"><?= h($specialty->name) ?></div>
+                                <?php endforeach; ?>
+                            </div>
+                            <h4 class="w400"><?= __('Adicionar especialidade') ?></h4>
+                            <div id="speciaties-to-add">
+                            <?php foreach ($specialties as $specialty): ?>
+                                <div  class="label label-specialties specialtyAdd" id="specialty-<?= h($specialty->id) ?>"><?= h($specialty->name) ?></div>
+                            <?php endforeach; ?>
+                            </div>
+                        </div>
                     </div>
                     <div class="col-md-12 profile-card">
-                        <div class="sub-header">
-                            <h4 class="w400">Formação</h4> 
-                            <span class="tooltip-sub-header">
+                        <div class="subtitle-cont">
+                        <?= $this->Html->image('formacao.png'); ?>
+                        <h4 class="w600 subtitle">Formação</h4>
+                        <span class="tooltip-sub-header">
                                 <a href="#" data-toggle="tooltip" data-placement="bottom" title="Falar alguma coisa sobre formação">?</a>
                             </span>
                         </div>
                         <hr>
+                    <div class="contn">
                         <ul id="degrees">
                             <?php foreach ($trainer->degrees as $degree): ?>
                             <li class="edit degree-info" id="<?= h($degree->id) ?>" >
@@ -361,6 +526,8 @@
                             </li>
                             <?php endforeach; ?>
                         </ul>
+                        <span class="btn btn-conf btn-input" id="btn-add-degree">Adicionar Formação</span>
+                            <div id="add-degree" class="add-information">
                         <?=
                         $this->Form->create(null, [
                             'id' => 'form-degree',
@@ -407,18 +574,24 @@
                             ?>
                         <?= $this->Form->end() ?>
                     </div>
-                    <div class="col-md-12 profile-card" >
-                        <div class="sub-header">
-                            <h4 class="w400">Regiões em que atende</h4> 
-                            <span class="tooltip-sub-header"><a href="#" data-toggle="tooltip" data-placement="bottom" title="Falar alguma coisa sobre regiões em que atende">?</a></span>
+                    </div>
+                    </div>
+                    <div class="col-md-12 profile-card last-card">
+                        <div class="subtitle-cont">
+                        <?= $this->Html->image('regiao-que-atende.png'); ?>
+                        <h4 class="w600 subtitle">Regiões em que atende</h4>
+                        <span class="tooltip-sub-header"><a href="#" data-toggle="tooltip" data-placement="bottom" title="Falar alguma coisa sobre regiões em que atende">?</a></span>
                         </div>
                         <hr>
+                        <div class="contn">
+
                         <ul id="locations">
                             <?php foreach ($trainer->locations as $location): ?>
                             <li class="edit location_name" id="<?= h($location->id) ?>" ><span style="font-weight: 600;" class="value-location"><?= h($location->location) ?></span><span class="sp-option-menu edit-location-name">editar</span><span class="sp-option-menu delete-location-name">excluir</span></li>
                             <?php endforeach; ?>
                         </ul>
-                        <div>
+                            <span class="btn btn-conf btn-input" id="btn-add-location">Adicionar Localização</span>
+                            <div id="add-location" class="add-information">
                             <?=
                             $this->Form->create(null, [
                                 'id' => 'form-location',
@@ -443,6 +616,7 @@
                             ])
                             ?>
                             <?= $this->Form->end() ?>
+                        </div>
                         </div>
                     </div>
                 </div>

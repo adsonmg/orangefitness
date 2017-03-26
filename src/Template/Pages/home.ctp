@@ -37,7 +37,7 @@
     <div class="row">
       <div class="col-md-8 col-md-offset-2 centered">
         <h1 style="margin-bottom: 12px;">Encontre os melhores treinadores</h1>
-        <h3 style="margin-top:0px">Mais de <span style="font-weight: 400; color: #FE6055">1204</span> treinadores cadastrados</h3>
+        <h3 style="margin-top:0px">Mais de <span style="font-weight: 400; color: #EA3228">1204</span> treinadores cadastrados</h3>
         <div class="mtb">
             <?= $this->Form->create(null, [
                             'type' => 'get',
@@ -93,36 +93,38 @@
             <div class="row text-center">
                 <div class="col-lg-10 col-lg-offset-1">
                     <div class="row">
+                    <h2 class="title-600" style="color: #000">COMO FUNCIONA</h2>
+                     <h4 class="cl-grey mb">Encontre profissionais qualificados</h4>
                         <div class="col-md-3 col-sm-6">
                             <div class="service-item">
                                     <div class="img-cont">  
-                                        <?= $this->Html->image('tl1.png'); ?>
+                                        <?= $this->Html->image('como-funciona1.png'); ?>
                                     </div>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                                <p>Aumente a <b>visibilidade</b> dos seus serviços de treinador a nível nacional.</p>
                             </div>
                         </div>
                         <div class="col-md-3 col-sm-6">
                             <div class="service-item">
                                     <div class="img-cont">  
-                                        <?= $this->Html->image('tl2.png'); ?>
+                                        <?= $this->Html->image('como-funciona2.png'); ?>
                                     </div>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                                <p>Aumente a <b>visibilidade</b> dos seus serviços de treinador a nível nacional.</p>
                             </div>
                         </div>
                         <div class="col-md-3 col-sm-6">
                             <div class="service-item">
                                     <div class="img-cont">  
-                                        <?= $this->Html->image('tl3.png'); ?>
+                                        <?= $this->Html->image('como-funciona3.png'); ?>
                                     </div>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                                <p>Aumente a <b>visibilidade</b> dos seus serviços de treinador a nível nacional.</p>
                             </div>
                         </div>
                         <div class="col-md-3 col-sm-6">
                             <div class="service-item">
                                     <div class="img-cont">  
-                                        <?= $this->Html->image('tl4.png'); ?>
+                                        <?= $this->Html->image('como-funciona4.png'); ?>
                                     </div>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                                <p>Aumente a <b>visibilidade</b> dos seus serviços de treinador a nível nacional.</p>
                             </div>
                         </div>
                     </div>
@@ -136,9 +138,12 @@
     </section>
 
 <div class="container pb">
+  <div class="row centered mtb">
+    <div class="col-md-12">
+        <div class="btn btn-conf btn-input">Encontre profissionais qualificados</div>
+    </div>
+  </div>
   <div class="row">
-    <h2 class="centered title-600">Explore</h2>
-    <h4 class="mb centered">Encontre profissionais qualificados</h4>
     <div class="col-md-6">
         <?= $this->element('trainer-card',[
             "trainer_name" => "Edson Nascimento",
@@ -195,33 +200,6 @@
   </div><!--/row-->
 </div><!--/container-->
 
-<div id="testimonial">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-6 col-md-offset-3 centered">
-        <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
-          <!-- Wrapper for slides -->
-          <div class="carousel-inner">
-            <div class="item active">
-              <h3>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. </h3>
-              <h5><tgr>The Rock</tgr></h5>
-            </div>
-            <div class="item">
-              <h3>Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit.</h3>
-              <h5><tgr>Vin Diesel</tgr></h5>
-            </div>
-            <div class="item">
-              <h3>Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur.</h3>
-              <h5><tgr>Arnold</tgr></h5>
-            </div>
-          </div>
-        </div><!--/Carousel-->
-
-      </div>
-    </div><!--/row-->
-  </div><!--/container-->
-</div><!--/green-->
-
 <div id="sep">
   <div class="container">
     <div class="row">
@@ -233,3 +211,41 @@
     </div>
   </div>
 </div><!--/sep-->
+
+<div id="testimonial">
+  <div class="container">
+    <h2 class="centered title-600">O QUE ESTÃO COMENTANDO SOBRE A TRAINER LINK</h2>
+    <h4 class="mb centered">Encontre profissionais qualificados</h4>
+    <div class="row">
+      <div class="col-md-6 col-md-offset-3 centered">
+        <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+          <!-- Wrapper for slides -->
+          <div class="carousel-inner">
+            <div class="item active">
+              <div class="foto centered">
+                <img src="/trainerlink/img/trainer.PNG" class="foto-profile img-circle" alt="">            
+              </div>
+              <h3>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia cons </h3>
+              <h5><tgr>The Rock</tgr></h5>
+            </div>
+            <div class="item">
+              <div class="foto centered">
+                <img src="/trainerlink/img/trainer2.PNG" class="foto-profile img-circle" alt="">            
+              </div>
+              <h3>Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit.</h3>
+              <h5><tgr>Vin Diesel</tgr></h5>
+            </div>
+            <div class="item">
+              <div class="foto centered">
+                <img src="/trainerlink/img/trainer.PNG" class="foto-profile img-circle" alt="">            
+              </div>
+              <h3>Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae .</h3>
+              <h5><tgr>Arnold</tgr></h5>
+            </div>
+          </div>
+        </div><!--/Carousel-->
+
+      </div>
+    </div><!--/row-->
+  </div><!--/container-->
+</div><!--/green-->

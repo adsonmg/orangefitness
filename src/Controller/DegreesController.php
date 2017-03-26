@@ -76,24 +76,38 @@ class DegreesController extends AppController
      * @return \Cake\Network\Response|void Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Network\Exception\NotFoundException When record not found.
      */
-    public function edit($id = null)
+    public function edit()
     {
-        $degree = $this->Degrees->get($id, [
-            'contain' => []
-        ]);
+        //Use autorender to avoid missing template error
+        $this->viewBuilder()->layout('ajax');
+       
         if ($this->request->is(['patch', 'post', 'put'])) {
-            $degree = $this->Degrees->patchEntity($degree, $this->request->data);
-            if ($this->Degrees->save($degree)) {
-                $this->Flash->success(__('The degree has been saved.'));
-
-                return $this->redirect(['action' => 'index']);
+            
+    
+            
+            $id = $this->request->data['id'];
+           
+           
+            $degrees = TableRegistry::get('Degrees');
+            $degree = $degrees->get($id); // Return article with id = $id (primary_key of row which need to get updated)
+            $degree->instituition = $this->request->data['instituition'];
+            $degree->course = $this->request->data['course'];
+            $degree->duration = $this->request->data['duration'];
+            $degree->description = $this->request->data['description'];
+            if($degrees->save($degree)){
+              // saved
             } else {
-                $this->Flash->error(__('The degree could not be saved. Please, try again.'));
+              // something went wrong
             }
+            
+            
+            $trainers = $this->Degrees->Trainers->find('list', ['limit' => 200]);
+            $this->set(compact('degree', 'trainers'));
+            $this->set('_serialize', ['degree']);
         }
-        $trainers = $this->Degrees->Trainers->find('list', ['limit' => 200]);
-        $this->set(compact('degree', 'trainers'));
-        $this->set('_serialize', ['degree']);
+        
+        
+        
     }
 
     /**
