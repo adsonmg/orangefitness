@@ -265,3 +265,11 @@ input[type="checkbox"] {
 .add-information{
     display: none;
 }
+
+.p32{
+    padding: 32px !important;
+}
+
+.pb15{
+    padding-bottom: 15px;
+}

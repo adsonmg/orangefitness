@@ -78,7 +78,29 @@ class TrainersController extends AppController
         $this->set('trainer', $trainer);
         $this->set('_serialize', ['trainer']);
     }
-
+    
+     public function add()
+    {
+       
+        $trainer = $this->Trainers->newEntity();
+        if ($this->request->is('post')) {
+            $trainer = $this->Trainers->newEntity($this->request->data);
+                        
+            //By setting the entity property with the session data,
+            //we remove any possibility of the user to access another user data
+            $trainer->users_id = $this->Auth->user('id');
+        
+            if ($this->Trainers->save($trainer)) {
+                $this->Flash->success(__('The trainer has been saved.'));
+                //Get id of trainer just added and redirects to edit page
+                return $this->redirect(['action' => 'addProfilePicture', $trainer->id]);
+            } else {
+                $this->Flash->error(__('The trainer could not be saved. Please, try again.'));
+            }
+           
+        }
+        $this->set(compact('trainer'));
+    }
     /**
      * Add method
      * 
@@ -86,30 +108,41 @@ class TrainersController extends AppController
      *
      * @return \Cake\Network\Response|void Redirects on successful add, renders view otherwise.
      */
-    public function add()
-    {
-        $this->viewBuilder()->layout('cake_layout');
+    public function basicProfile($id = null)
+    { 
+        
+        $trainer = $this->Trainers->get($id, [
+            'contain' => ['Users']
+        ]);
+       
+        if ($this->request->is(['patch', 'post', 'put'])) {
+           
+            $trainer = $this->Trainers->patchEntity($trainer, $this->request->data,[
+                'associated' => ['Users']
+            ]);
+            
+            
+            if($this->request->data['picture'][0]['size'] > 0){ //if picture data is not empty
+                $trainer->user->picture = $this->Upload->send($this->request->data['picture']);
+                //Force user to become dirty to save updates in the db
+                $trainer->dirty('user', true);
 
-       $trainer = $this->Trainers->newEntity();
-        if ($this->request->is('post')) {
-            $trainer = $this->Trainers->patchEntity($trainer, $this->request->data);
-            
-            //By setting the entity property with the session data,
-            //we remove any possibility of the user to access another user data
-            $trainer->users_id = $this->Auth->user('id');
-            
+            }
+                                 
             if ($this->Trainers->save($trainer)) {
                 $this->Flash->success(__('The trainer has been saved.'));
                 //Get id of trainer just added and redirects to edit page
-                return $this->redirect(['action' => 'edit', $trainer->id]);
+                //return $this->redirect(['action' => 'edit', $trainer->id]);
             } else {
                 $this->Flash->error(__('The trainer could not be saved. Please, try again.'));
             }
-        }
-        $users = $this->Trainers->Users->find('list', ['limit' => 200]);
-        $specialties = $this->Trainers->Specialties->find('list', ['limit' => 200]);
-        $this->set(compact('trainer', 'users', 'specialties'));
-        $this->set('_serialize', ['trainer']);
+            
+        }           
+        $user = $this->Auth->user();
+        $cities = $this->Trainers->Users->Cities->find('list');
+        $states = $this->Trainers->Users->States->find('list');
+        $this->set(compact('trainer', 'user', 'cities', 'states'));
+
     }
 
     /**
@@ -178,6 +211,44 @@ class TrainersController extends AppController
             
         }
         
+        
+    }
+    
+    public function addProfilePicture($id = null){
+        
+        $trainer = $this->Trainers->get($id, [
+            'contain' => ['Users']
+        ]);
+       
+        if ($this->request->is(['patch', 'post', 'put'])) {
+           
+            $trainer = $this->Trainers->patchEntity($trainer, $this->request->data,[
+                'associated' => ['Users']
+            ]);
+            
+            if($this->request->data['picture'][0]['size'] > 0){ //if picture data is not empty
+                $trainer->user->picture = $this->Upload->send($this->request->data['picture']);
+                //Force user to become dirty to save updates in the db
+                $trainer->dirty('user', true);
+
+            }
+                                 
+            if ($this->Trainers->save($trainer)) {
+                //Get id of trainer just added and redirects to edit page
+                return $this->redirect(['action' => 'edit', $trainer->id]);
+            } else {
+                //$this->Flash->error(__('The trainer could not be saved. Please, try again.'));
+            }
+            
+        }   
+        /*        
+        $user = $this->Auth->user();
+        $cities = $this->Trainers->Users->Cities->find('list');
+        $states = $this->Trainers->Users->States->find('list');
+         * 
+         */
+        $this->set(compact('trainer'));
+       
         
     }
     
@@ -256,6 +327,29 @@ class TrainersController extends AppController
         return $this->redirect(['action' => 'index']);
     }
     
+    public function sendEmail($id = null){
+        $this->RequestHandler->renderAs($this, 'json');
+        $this->response->type('application/json');
+        $this->set('_serialize', true);
+        
+        //Use autorender to avoid missing template error
+        $this->viewBuilder()->layout('ajax');
+        
+        $callback = '';
+        
+        if ($this->request->is('post')) {
+            $trainer = $this->Trainers->get($id, [
+                'contain' => 'Users'
+            ]);
+            
+            $requestData = $this->request->data;
+            
+            $this->Email->emailToTrainer($trainer->user->email, $trainer->user->name, $requestData['email'], $requestData['name'], $requestData['age'], $requestData['message'], $requestData['deadline']);
+        }
+        
+        $this->set(compact('callback'));
+        $this->set('_serialize', ['callback']);
+    }
     /**
      * By default access to trainer is denied. So we´ll 
      * incrementally grant access where it makes sense.
@@ -264,7 +358,7 @@ class TrainersController extends AppController
     public function isAuthorized($user) {
         $action = $this->request->params['action'];
         //view and add profile are alwayes allowed.
-        if(in_array($action, ['view', 'add', 'search'])){
+        if(in_array($action, ['view', 'basicProfile', 'search', 'add'])){
             return true;
         }
         
@@ -286,8 +380,13 @@ class TrainersController extends AppController
     public function initialize()
     {
         parent::initialize();
-        $this->Auth->allow(['view', 'editBio', 'addSpecialty', 'deleteSpecialty']);
+        $this->Auth->allow(['view', 'editBio', 'addSpecialty', 'deleteSpecialty', 'sendEmail']);
         $this->loadComponent('RequestHandler');
+        //inicializa componente de upload
+        $this->loadComponent('Upload');
+        $this->loadComponent('Email');
+
+
 
     }
     

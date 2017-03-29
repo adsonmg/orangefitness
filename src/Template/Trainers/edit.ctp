@@ -24,7 +24,7 @@
             $('#bio').removeClass('edit-bio');
             $('.edit-bio-text').replaceWith("<div class=\"form-edit-bio-text\"><form method=\"post\" accept-charset=\"utf-8\" id=\"form-bio-edit\" action=\"/trainerlink/trainers/edit/#\">" +
                     "<textarea name=\"bio\" class=\"form-control\" placeholder=\"Fale um pouco sobre você\" id=\"input-add-bio-text\" style=\"margin-bottom: 15px\" rows=\"10\">"+trainerJSONData.bio+'</textarea>' +
-                    "<input type=\"hidden\" name=\"users_id\" value=\"<?= $trainer->users_id; ?>\"/>" +
+                    "<input type=\"hidden\" name=\"users_id\" value=\"<?= $trainer->id; ?>\"/>" +
                     "<button id=\"submit-degree\" class=\"btn btn-conf btn-input\" type=\"submit\">Salvar</button>"+
                     "</form></div>");
         });
@@ -145,6 +145,12 @@
             
                         
             
+        });
+        
+        //btn-add-degree
+        $(document).on('click', '#btn-add-specialty', function(e){ 
+            $("#add-specialty").css("display", "block");
+            $("#btn-add-specialty").css("display", "none");
         });
         
         //===================== End specialties ==========================
@@ -432,8 +438,16 @@
                 <div >
                     <div class="row profile-card profile-inf">
                         <div class="col-md-12 text-center">
+                            <?php
+                                echo $this->Html->link(
+                                    'Editar',
+                                    ['controller' => 'Trainers', 'action' => 'basicProfile', $trainer->id]
+                                );
+                            ?>
                             <div class="foto centered">
-                                <?= $this->Html->image('trainer.PNG', ['class'=>'foto-profile img-circle']); ?>
+                                <?= $this->element('profile-picture',[
+                                    'img_porfile' => $trainer->user->picture
+                                ]); ?>
                             </div>
                             <div class="col-md-12 text-center mg-top-15">
                                 <h4 class="trainer-name mg-0"><?= $trainer->user->name ?></h4>
@@ -491,11 +505,15 @@
                                     <div class="label label-specialties specialtyTrainer" id="specialty-<?= h($specialty->id) ?>"><?= h($specialty->name) ?></div>
                                 <?php endforeach; ?>
                             </div>
-                            <h4 class="w400"><?= __('Adicionar especialidade') ?></h4>
-                            <div id="speciaties-to-add">
-                            <?php foreach ($specialties as $specialty): ?>
-                                <div  class="label label-specialties specialtyAdd" id="specialty-<?= h($specialty->id) ?>"><?= h($specialty->name) ?></div>
-                            <?php endforeach; ?>
+                            <br/>
+                            <span class="btn btn-conf btn-input" id="btn-add-specialty">Adicionar Especialidade</span>
+                            <div id="add-specialty" class="add-information">
+                                <h4 class="w400"><?= __('Adicionar especialidade') ?></h4>
+                                <div id="speciaties-to-add">
+                                <?php foreach ($specialties as $specialty): ?>
+                                    <div  class="label label-specialties specialtyAdd" id="specialty-<?= h($specialty->id) ?>"><?= h($specialty->name) ?></div>
+                                <?php endforeach; ?>
+                                </div>
                             </div>
                         </div>
                     </div>

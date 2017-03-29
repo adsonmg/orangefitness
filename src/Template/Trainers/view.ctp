@@ -23,6 +23,39 @@ $(document).ready(function(){
 <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
  <?= $this->Html->script('ie10-viewport-bug-workaround.js', ['block' => true]) ?>
 
+
+ <script type="text/javascript">
+     $(document).ready(function () {
+         $(document).on('submit', '#form-contact', function(e){
+            //Get fomr data
+            var data = $(this).serialize();          
+
+            //Create a post request
+            var request = $.post('<?php
+                            echo $this->Url->build([
+                                'controller' => 'Trainers',
+                                'action' => 'sendEmail',
+                                $trainer->id
+                            ]);
+                            ?>',
+                            data);
+            
+            //Get request response
+            request.done(function () {
+                $('#modal-form').replaceWith("Mensagem enviada com sucesso!");
+
+            })
+            .fail(function (response) {
+                $('#modal-form').replaceWith("Ocorreu um erro! Por favor, tente novamente.");
+            });
+            
+            return false;
+            
+        });
+       
+     });
+ </script>
+
 <style>
 .navbar-nav {
     float: right;
@@ -57,7 +90,9 @@ $(document).ready(function(){
                     <div class="row profile-card profile-inf">
                         <div class="col-md-12 text-center">
                             <div class="foto centered">
-                                <?= $this->Html->image('trainer.PNG', ['class'=>'foto-profile img-circle']); ?>
+                                <?= $this->element('profile-picture',[
+                                    'img_porfile' => $trainer->user->picture
+                                ]); ?>
                             </div>
                             <div class="col-md-12 text-center mg-top-15">
                                 <h4 class="trainer-name mg-0"><?= $trainer->user->name ?></h4>
@@ -80,7 +115,7 @@ $(document).ready(function(){
                     </div><!-- end .row -->
                     <div class="row">
                         <div class="col-md-12 text-center btn-contact text-uppercase">
-                            <a href="#">Entrar em contato</a>
+                            <a href="#" data-toggle="modal" data-target="#myModal">Entrar em contato</a>
                         </div>
                     </div>
                 </div>
@@ -152,6 +187,70 @@ $(document).ready(function(){
             </div>
            
         </div>
+
+        <!-- Modal -->
+      <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">Entre em contato com o treinador</h4>
+            </div>
+            <div class="modal-body">
+                <div id="modal-form">
+                    <?=  $this->Form->create(null, [
+                            'id' => 'form-contact',
+                        ]); 
+                        echo "<div class=\"input text\">" . $this->Form->input('name', [
+                                    'class' => 'form-control',
+                                    'placeholder' => 'Nome completo',
+                                    'label' => false
+                                ]) . "</div>";
+
+                        echo "<div class=\"input text\">" . $this->Form->input('age', [
+                                    'class' => 'form-control',
+                                    'placeholder' => 'Sua idade',
+                                    'label' => false
+                                ]) . "</div>";
+
+                        echo "<div class=\"input text\">" . $this->Form->input('email', [
+                                    'class' => 'form-control',
+                                    'placeholder' => 'Email para contato',
+                                    'label' => false
+                                ]) . "</div>";
+
+                        echo "<div class=\"input text\">" . $this->Form->textarea('message', [
+                                    'class' => 'form-control',
+                                    'placeholder' => 'Escreva uma breve descrição dos resultados que pretende alcançar',
+                                    'label' => false
+                                ]) . "</div><br/>";
+
+                        echo "<div class=\"input text\">" . $this->Form->select('deadline', 
+                                [
+                                    1 => 'Nos próximos dias',
+                                    2 => 'Nas próximas semanas',
+                                    3 => 'Estou apenas pesquisando'
+                                ],
+                                [
+                                    'label' => false,
+                                    'class' => 'form-control',
+                                    'empty' => 'Quando gostaria de iniciar?'
+                                ]) . "</div>";
+                            
+
+                        echo $this->Form->button(__('Enviar'), [
+                            'class' => 'btn btn-conf btn-input'
+                        ]); 
+                        echo $this->Form->end(); 
+                    ?>
+                </div>
+            </div>
+            <div class="modal-footer">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
     </div>
 </section>
 
