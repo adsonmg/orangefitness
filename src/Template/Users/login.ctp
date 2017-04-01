@@ -60,8 +60,15 @@ echo $this->Html->css('//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.c
             $('.login-box').css('position', 'absolute');
             
         });
+        
+        $('#states-id').change(function() {
+          $('#cities').load('<select name="cities_id" id="cities-id"><option value="-1">Carregando..</option></select>');
+          $('#cities').load('../trainers/getCities/'+$(this).val());
+        });
+       
     });
 </script>
+
 <div id="home-header">
     <!-- header -->
 <?= $this->element('header'); ?>
@@ -135,23 +142,25 @@ echo $this->Html->css('//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.c
                             'placeholder' => 'CPF',
                             'label' => false
                         ]) . "</div>";
-                        echo "<div class=\"input text\">" . $this->Form->input('states_id', [
+                        echo "<div class=\"input text\">" . $this->Form->select('states_id', $states, [
                             'class' => 'register-input',
-                            'placeholder' => 'Estado',
-                            'options' => $states,
-                            'label' => false
+                            'empty' => 'Estado',
+                            'label' => false,
+                            'id' => 'states-id'
                         ]) . "</div>";
-                        echo "<div class=\"input text\">" . $this->Form->input('cities_id', [
+                        
+                        echo '<span id="cities">';
+                        echo "<div class=\"input text\">" . $this->Form->select('cities_id', [], [
                             'class' => 'register-input',
-                            'placeholder' => 'Cidade',
-                            'options' => $cities,
-                            'label' => false
+                            'label' => false,
+                            'empty' => 'Cidade'
                         ]) . "</div>";
+                        echo '</span>';
 
-                        echo "<div class=\"input text\">" . $this->Form->input('genre', [
+                        echo "<div class=\"input text\">" . $this->Form->select('genre',[1 => 'Masculino', 2 => 'Feminino'], [
                             'class' => 'register-input',
-                            'placeholder' => 'genero',
-                            'label' => false
+                            'label' => false,
+                            'empty' => 'Gênero'
                         ]) . "</div>";
                         ?>
                         <div class="pl" style="text-align: right">

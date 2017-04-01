@@ -50,7 +50,7 @@
             <?= $this->Form->input('specialties', array('options' => $specialties, 
                                                 'class'=>'search-input',
                                                 'label' => false,
-                                                'placeholder' => 'O que você procura?'
+                                                'placeholder' => 'Especialidade que você procura?'
                         )
                     ) ?>
             <?= $this->Form->input('city',array('id' => 'Autocomplete', 
@@ -83,7 +83,7 @@
           </form>
             -->
         </div><!--/mt-->
-        <h6><a href="#testimonial" class="help">Como funciona?</a></h6>
+        <h6><a href="#services" class="help">Como funciona?</a></h6>
       </div>
     </div><!--/row-->
   </div><!--/container-->
@@ -145,55 +145,19 @@
   </div>
   <div class="row">
     <div class="col-md-6">
-        <?= $this->element('trainer-card',[
-            "trainer_name" => "Edson Nascimento",
-            "trainer_location" => "Curitiba,PR",
-            "trainer_image" => "trainer.PNG",
-            "trainer_views" => "+1000",
-            "trainer_specialty" => "Personal Trainer",
-            "trainer_bio" => "Nemo enim ipsam voluptatem quia voluptas"
-            . " sit aspernatur aut odit aut fugit, sed quia "
-            . "consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt."
-        ]); ?>
+        <?= $this->element('trainer-card',["trainer" => $trainer1]); ?>
     </div><!--/col-md-4-->
 
      <div class="col-md-6">
-         <?= $this->element('trainer-card',[
-            "trainer_name" => "Christina Souza",
-            "trainer_location" => "Varginha,MG",
-            "trainer_image" => "trainer2.PNG",
-            "trainer_views" => "+2000",
-            "trainer_specialty" => "Yoga",
-            "trainer_bio" => "Nemo enim ipsam voluptatem quia voluptas"
-            . " sit aspernatur aut odit aut fugit, sed quia "
-            . "consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.",
-        ]); ?>
+         <?= $this->element('trainer-card',["trainer" => $trainer1]); ?>
     </div><!--/col-md-4-->
     
     <div class="col-md-6">
-        <?= $this->element('trainer-card',[
-            "trainer_name" => "Edson Nascimento",
-            "trainer_location" => "Curitiba,PR",
-            "trainer_image" => "trainer.PNG",
-            "trainer_views" => "+1000",
-            "trainer_specialty" => "Personal Trainer",
-            "trainer_bio" => "Nemo enim ipsam voluptatem quia voluptas"
-            . " sit aspernatur aut odit aut fugit, sed quia "
-            . "consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt."
-        ]); ?>
+        <?= $this->element('trainer-card',["trainer" => $trainer1]); ?>
     </div><!--/col-md-4-->
 
      <div class="col-md-6">
-         <?= $this->element('trainer-card',[
-            "trainer_name" => "Christina Souza",
-            "trainer_location" => "Varginha,MG",
-            "trainer_image" => "trainer2.PNG",
-            "trainer_views" => "+2000",
-            "trainer_specialty" => "Yoga",
-            "trainer_bio" => "Nemo enim ipsam voluptatem quia voluptas"
-            . " sit aspernatur aut odit aut fugit, sed quia "
-            . "consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.",
-        ]); ?>
+         <?= $this->element('trainer-card',["trainer" => $trainer1]); ?>
     </div><!--/col-md-4-->
     
     

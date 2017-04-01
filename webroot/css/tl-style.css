@@ -362,6 +362,15 @@ background: none;
 /* End Trainer
 ---------------------*/
 
+.label-specialties {
+    display: inline-block;
+    background-color: #ddd;
+    color: #000;
+    font-weight: 400;
+    padding: 10px 15px 10px 15px;
+    margin: 0px 5px 5px 0px;
+}
+
 
 @media only screen and (max-width : 768px) {
     

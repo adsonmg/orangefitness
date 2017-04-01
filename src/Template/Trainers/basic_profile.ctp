@@ -13,6 +13,15 @@
 <!-- header -->
 <?= $this->element('header'); ?>
 <!-- end header -->
+<script>
+    $(document).ready(function () {      
+        $('#states-id').change(function() {
+          $('#cities').load('<select name="cities_id" id="cities-id"><option value="-1">Carregando..</option></select>');
+          $('#cities').load('../getCitiesBp/'+$(this).val());
+        });
+       
+    });
+</script>
 
 <section id="content" class="sec-content mg-top-75">
     <div class="container">
@@ -88,9 +97,11 @@
                             'placeholder' => 'Estado',
                             'value' => $trainer->user->states_id,
                             'options' => $states,
-                            'label' => false
+                            'label' => false,
+                            'id' => 'states-id'
                         ]) . "</div>";
 
+                        echo '<span id="cities">';
                         echo "<div class=\"input text\">" . $this->Form->input('user.cities_id', [
                             'class' => 'form-control',
                             'placeholder' => 'Cidade',
@@ -98,6 +109,7 @@
                             'options' => $cities,
                             'label' => false
                         ]) . "</div>";
+                        echo '</span>';
 
                         echo "<div class=\"input text\">" . $this->Form->select('user.genre', [1 => 'Masculino', 2 => 'Feminino'], [
                             'empty' => 'Escolha um genero', 

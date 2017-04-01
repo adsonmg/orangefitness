@@ -81,26 +81,19 @@
                    </li>
                 </ul>
                 <hr>
-                <h5 class="ms w600 ul-title">Realizar treinamentos em:</h5>
+                <h5 class="ms w600 ul-title">Tipo de sessão:</h5>
                 <ul class="nav nav-sidebar ms">
                     <li> 
                         <div class="checkbox">
                             <label>
-                                <input class="checkbox" type="checkbox" name="gym" value="gym" checked="true"> Academia
+                                <input class="checkbox" type="checkbox" name="local" value="1" checked="true"> Presencial
                              </label>
                         </div>
                    </li>
                    <li> 
                         <div class="checkbox">
                             <label>
-                                <input class="checkbox" type="checkbox" name="house" value="house" checked="true"> Casa
-                             </label>
-                        </div>
-                   </li>
-                   <li> 
-                        <div class="checkbox">
-                            <label>
-                                <input class="checkbox" type="checkbox" name="park" value="park" checked="true"> Parques
+                                <input class="checkbox" type="checkbox" name="online" value="2" checked="true"> Online
                              </label>
                         </div>
                    </li>
@@ -111,16 +104,7 @@
             <!-- result-search -->
             <div class="col-md-7 tileBox result-ser">
                 <?php foreach ($trainers as $trainer): ?>
-                    <?= $this->element('trainer-card',[
-                            "trainer_name" => $trainer->user->name,
-                            "trainer_location" => "Varginha,MG",
-                            "trainer_image" => "trainer.PNG",
-                            "trainer_views" => "+2000",
-                            "trainer_specialty" => "Yoga",
-                            "trainer_bio" => "Nemo enim ipsam voluptatem quia voluptas"
-                            . " sit aspernatur aut odit aut fugit, sed quia "
-                            . "consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.",
-                        ]); ?>
+                    <?= $this->element('trainer-card',["trainer" => $trainer]); ?>
                     
                 <?php endforeach; ?>
 

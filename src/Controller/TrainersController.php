@@ -350,6 +350,22 @@ class TrainersController extends AppController
         $this->set(compact('callback'));
         $this->set('_serialize', ['callback']);
     }
+    
+    public function getCities($stateId){
+        $this->viewBuilder()->layout();
+        $option = $this->Trainers->Users->Cities->find('list')
+                ->where(['states_id' => $stateId]);
+        $this->set('option', $option);
+        $this->set('_serialize', ['option']);
+      }
+    public function getCitiesBp($stateId){
+      $this->viewBuilder()->layout();
+      $option = $this->Trainers->Users->Cities->find('list')
+              ->where(['states_id' => $stateId]);
+      $this->set('option', $option);
+      $this->set('_serialize', ['option']);
+    }
+      
     /**
      * By default access to trainer is denied. So we´ll 
      * incrementally grant access where it makes sense.
@@ -380,7 +396,7 @@ class TrainersController extends AppController
     public function initialize()
     {
         parent::initialize();
-        $this->Auth->allow(['view', 'editBio', 'addSpecialty', 'deleteSpecialty', 'sendEmail']);
+        $this->Auth->allow(['view', 'editBio', 'addSpecialty', 'deleteSpecialty', 'sendEmail', 'getCities', 'getCitiesBp']);
         $this->loadComponent('RequestHandler');
         //inicializa componente de upload
         $this->loadComponent('Upload');

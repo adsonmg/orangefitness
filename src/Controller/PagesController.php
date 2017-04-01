@@ -49,13 +49,32 @@ class PagesController extends AppController
         if (!empty($path[0])) {
             $page = $path[0];
             $this->loadModel('Specialties');
+            $this->loadModel('Trainers');
+
+            
             $specialties = $this->Specialties->find('list', ['limit' => 200]);
             $specialties = $specialties->toArray();
             
-            //Add placeholder to specialties
-            array_unshift($specialties, __("O que você procura?"));
+            $trainer1 = $this->Trainers->get(1, [
+            'contain' => ['Users', 'Specialties', 'SocialMedias', 'Telephones', 'Certificates', 'Articles', 'Degrees', 'Locations', 'Users.Cities', 'Users.States']
+        ]);
             
-            $this->set(compact('specialties'));
+            $trainer2 = $this->Trainers->get(14, [
+            'contain' => ['Users', 'Specialties', 'SocialMedias', 'Telephones', 'Certificates', 'Articles', 'Degrees', 'Locations', 'Users.Cities', 'Users.States']
+        ]);
+            
+            $trainer3 = $this->Trainers->get(17, [
+            'contain' => ['Users', 'Specialties', 'SocialMedias', 'Telephones', 'Certificates', 'Articles', 'Degrees', 'Locations', 'Users.Cities', 'Users.States']
+        ]);
+            
+            $trainer4 = $this->Trainers->get(1, [
+            'contain' => ['Users', 'Specialties', 'SocialMedias', 'Telephones', 'Certificates', 'Articles', 'Degrees', 'Locations', 'Users.Cities', 'Users.States']
+        ]);
+            
+            //Add placeholder to specialties
+            array_unshift($specialties, __("Escolha uma especialidade"));
+            
+            $this->set(compact('specialties', 'trainer1', 'trainer2', 'trainer3', 'trainer4'));
         }
         if (!empty($path[1])) {
             $subpage = $path[1];

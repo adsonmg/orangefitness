@@ -2,25 +2,39 @@
     <div class="row">
         <div class="col-md-4 text-center">
             <div class="foto centered">
-                <?= $this->Html->image($trainer_image, ['class'=>'foto-profile img-circle']); ?>
+                <?= $this->element('profile-picture',[
+                                    'img_porfile' => $trainer->user->picture
+                                ]); ?>
             </div>
             <p class="trainer-views">
                 <span style="font-weight: 600">                 
-                    <?= $trainer_views ?>
+                    <?= $trainer->user->city->name.','.$trainer->user->state->uf ?>
                  </span> 
                 </br>
                 visualizações
             </p>
-            <p class="trainer-specialty">
-                <?= $trainer_specialty ?>
-            </p>
         </div>
         <div class="col-md-8">
-            <h4 class="trainer-name"><?= $trainer_name ?></h4>
-            <h5><?= $trainer_location ?></h5>
-            <h5 class="sub-title"><?= $trainer_bio ?>
+            <h4 class="trainer-name"><?= $trainer->user->name ?></h4>
+            <h5><?php ?></h5>
+            <h5 class="sub-title"><?= $trainer->bio ?>
             </h5>      
-            <a href="#" class="btn btn-conf-2 btn-input btn-trainer" role="Button">Ver perfil</a> 
+            <p class="trainer-specialty">
+                <?php foreach ($trainer->specialties as $specialty): ?>
+                    <div class="label label-specialties"><?= h($specialty->name) ?></div>
+                <?php endforeach; ?>
+            </p>
+            <?php
+                echo $this->Html->link(
+                    'Ver perfil',
+                    [   'controller' => 'Trainers',
+                        'action' => 'view',
+                        $trainer->id],
+                    [
+                        'class' => 'btn btn-conf-2 btn-input btn-trainer'
+                    ]
+                );
+            ?>
         </div>
     </div>
 </div>
